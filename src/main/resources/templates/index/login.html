@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="index/layout">
+
+<head>
+    <title>Bejelentkezés</title>
+</head>
+
+<body>
+
+  <div class="form" layout:fragment="index">      
+
+      <h1 th:text="${msg}"></h1>
+      <h1 th:if="${param.error}">Hibás felhasználónév vagy jelszó! (Vagy a felhasználó nincs aktiválva.)</h1>      
+	  <h1 th:if="${param.logout}">Sikeresen kijelentkeztél!</h1>	  
+      
+      <ul class="tab-group">
+		<li class="tab active"><a href="login">Bejelentkezés</a></li>
+        <li class="tab"><a href="registration">Regisztráció</a></li>        
+      </ul>
+		    
+        <div id="login">   
+          <h1>Üdv a Program név-en!</h1>
+          
+          <form th:action="@{/login}" method="post">
+          
+            <div class="field-wrap">
+            <label>
+              E-mail cím<span class="req">*</span>
+            </label>
+            <input name="username" type="email" required="true" />
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Jelszó<span class="req">*</span>
+            </label>
+            <input name="password" type="password" required="true" />
+          </div>
+		  
+          <button class="button button-block">Bejelentkezés</button>
+          
+          </form>
+
+        </div>
+      
+	</div>
+
+</body>
+
+</html>

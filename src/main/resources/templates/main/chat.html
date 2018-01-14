@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat for Everyone</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></link>
+  <link rel="stylesheet" href="css/chat.css"></link>
+
+  
+</head>
+
+<body>
+	<form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">
+				 <a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Kijelentkezés</a>
+	</form>
+	
+	<br />
+	
+	<a href="kapcsolatok">Kapcsolatok</a>
+	
+	<br /><br />
+	
+	<a href="baratok" target="_blank">REST: barataim</a>
+	
+	<br /><br />
+	
+	<a href="beszelgetes" target="_blank">REST: beszelgetes</a>
+	
+	
+  	<div class="ui">
+  	
+		<div class="left-menu">				
+				<menu class="list-friends">				
+					<ul></ul>									
+				</menu>
+		</div>
+		
+		<div class="chat">
+<!-- 			<div class="top"> -->
+				
+<!-- 				<div class="info"> -->
+<!-- 					<div class="name"></div> -->
+<!-- 				</div> -->
+				
+<!-- 			</div> -->
+			
+<!-- 			<ul class="messages"> -->
+			
+<!-- 				<li class="i"> -->
+<!-- 					<div class="head"> -->
+<!-- 						<span class="name">Te</span> -->
+<!-- 					</div> -->
+<!-- 					<div class="message">Szia!</div> -->
+<!-- 				</li> -->
+				
+<!-- 			</ul> -->
+
+			<div class="top">
+				
+				<div class="info">
+					<div class="name">Válassz chat partnert!</div>
+				</div>
+				
+			</div>
+			
+			<ul class="messages">
+			
+<!-- 				<li class="i"> -->
+<!-- 					<div class="head"> -->
+<!-- 						<span class="name">Te</span> -->
+<!-- 					</div> -->
+<!-- 					<div class="message">Szia!</div> -->
+<!-- 				</li> -->
+				
+			</ul>
+
+			<div class="write-form">
+				<textarea placeholder="Írj üzenetet..." name="e" id="texxt" rows="2"></textarea>
+				<span class="send">Küld</span>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/nicescroll/3.5.4/jquery.nicescroll.js'></script>
+    <script src="js/chat.js"></script>
+
+</body>
+
+<!--
+Copyright (c) 2017 by DAVID NotDavid (https://codepen.io/retyui/pen/zxGqPJ)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+</html>

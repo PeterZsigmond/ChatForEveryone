@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorator="index/layout">
+
+<head>
+    <title>Regisztráció</title>
+</head>
+
+<body>
+
+  <div class="form" layout:fragment="index">
+      
+      
+      
+      <ul class="tab-group">
+		<li class="tab"><a href="login">Bejelentkezés</a></li>
+        <li class="tab active"><a href="registration">Regisztráció</a></li>        
+      </ul>
+		
+		<div id="signup">   
+          <h1>Regisztráció a program név-be!</h1>
+          
+          <form th:action="@{/registration}" th:object="${user}" method="POST">
+          
+          
+            <div class="field-wrap">
+              <label>
+                E-mail cím<span class="req">*</span>
+              </label>
+              <input type="email" th:field="*{email}" required="true" autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Nick név<span class="req">*</span>
+              </label>
+              <input type="text" th:field="*{nickName}" required="true" autocomplete="off" />
+            </div>          
+
+          <div class="field-wrap">
+            <label>
+              Jelszó<span class="req">*</span>
+            </label>
+            <input type="password" th:field="*{password}" required="true" autocomplete="off" />
+          </div>
+          
+          <button type="submit" class="button button-block">Regisztráció</button>
+          
+          </form>
+
+        </div>
+      
+	</div>
+
+</body>
+
+</html>
