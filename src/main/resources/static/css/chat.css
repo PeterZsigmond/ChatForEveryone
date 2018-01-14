@@ -2,7 +2,8 @@
 	url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400);
 
 @import
-	url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+	url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css)
+	;
 
 * {
 	box-sizing: border-box;
@@ -17,8 +18,8 @@ html {
 body {
 	overflow: hidden;
 	font-family: 'Open Sans', sans-serif;
-	background: -webkit-linear-gradient(to top, #514A9D, #24C6DC);
-	background: linear-gradient(to top, #514A9D, #24C6DC);
+	background: -webkit-linear-gradient(to top, #00f260, #0575e6);
+	background: linear-gradient(to top, #00f260, #0575e6);
 }
 
 .ui {

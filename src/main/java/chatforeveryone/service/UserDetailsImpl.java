@@ -53,5 +53,4 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return user.getActivationCode().equals("");
 	}
-
 }

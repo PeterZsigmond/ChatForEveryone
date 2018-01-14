@@ -25,10 +25,10 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private RelationshipRepository relationshipRepository;
 
@@ -82,67 +82,58 @@ public class UserService implements UserDetailsService {
 			return ret;
 		}
 	}
-	
-	public List<String> findFriendsByEmail(String email)
-	{
+
+	public List<String> findFriendsByEmail(String email) {
 		return userRepository.findFriendsByEmail(email);
 	}
-	
-	public Set<User> findWhoUserSentButNotYetElfogadva(String email)
-	{
+
+	public Set<User> findWhoUserSentButNotYetElfogadva(String email) {
 		return userRepository.findWhoUserSentButNotYetElfogadva(email);
-	}	
-	
-	public Set<User> findWhoWaitsForMyElfogadva(String email)
-	{
+	}
+
+	public Set<User> findWhoWaitsForMyElfogadva(String email) {
 		return userRepository.findWhoWaitsForMyElfogadva(email);
-	}	
-	
-	public String makeRelationship(String _kuldo, String _fogado)
-	{
+	}
+
+	public String makeRelationship(String _kuldo, String _fogado) {
 		User kuldo_, fogado_;
-		
+
 		kuldo_ = userRepository.findByEmail(_kuldo);
 		fogado_ = userRepository.findByEmail(_fogado);
-		
-		if(fogado_ == null)
+
+		if (fogado_ == null)
 			return "Ilyen user nem létezik!";
-		
+
 		String kuldo = kuldo_.getEmail();
-		String fogado = fogado_.getEmail();		
-		
-		if(kuldo.equals(fogado))		
+		String fogado = fogado_.getEmail();
+
+		if (kuldo.equals(fogado))
 			return "Saját magadat nem veheted fel!";
-		
+
 		Relationship rship = relationshipRepository.checkForRelationshipBetweenTwo(kuldo, fogado);
-			
-		if(rship != null)
-		{
-			if(kuldo.equals(rship.getFogado().getEmail()))
-				updateRelationshipToElfogadva(kuldo, fogado);	
+
+		if (rship != null) {
+			if (kuldo.equals(rship.getFogado().getEmail()))
+				updateRelationshipToElfogadva(kuldo, fogado);
 			else
 				return "Már küldtél neki!";
-		}
-		else
-			createNewRelationship(kuldo, fogado);	
-		
+		} else
+			createNewRelationship(kuldo, fogado);
+
 		return "";
 	}
-	
-	public void updateRelationshipToElfogadva(String a, String b)
-	{
+
+	public void updateRelationshipToElfogadva(String a, String b) {
 		Relationship rship = relationshipRepository.findRelationshipByTwoUser(a, b);
 		rship.setElfogadva(true);
 		relationshipRepository.save(rship);
 	}
-	
-	public void createNewRelationship(String ki, String kit)
-	{
+
+	public void createNewRelationship(String ki, String kit) {
 		relationshipRepository.createNewRelationship(ki, kit);
 	}
-	
-	public Set<User> findRelationshipsByEmail(String email)
-	{
+
+	public Set<User> findRelationshipsByEmail(String email) {
 		return userRepository.findRelationshipsByEmail(email);
 	}
 
@@ -169,5 +160,4 @@ public class UserService implements UserDetailsService {
 		userRepository.save(user);
 		return "ok";
 	}
-
 }

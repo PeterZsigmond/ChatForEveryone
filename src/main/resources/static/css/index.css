@@ -9,8 +9,8 @@ html {
 }
 
 body {
-	background: -webkit-linear-gradient(to top, #514A9D, #24C6DC);
-	background: linear-gradient(to top, #514A9D, #24C6DC);
+	background: -webkit-linear-gradient(to top, #00f260, #0575e6);
+	background: linear-gradient(to top, #00f260, #0575e6);
 	font-family: 'Titillium Web', sans-serif;
 }
 

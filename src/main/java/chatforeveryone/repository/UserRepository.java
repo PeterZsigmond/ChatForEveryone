@@ -13,10 +13,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findByActivationCode(String code);
 	
-	@Query(value = "select * from users where id = ANY (\r\n" + 
-			"select fogado_id from relationships where elfogadva=1 and kuldo_id = (select id from users where email = ?1)\r\n" + 
-			"UNION\r\n" + 
-			"select kuldo_id from relationships where elfogadva=1 and fogado_id = (select id from users where email = ?1))", nativeQuery = true)
+	@Query(value = "select * from users where id = ANY (" + 
+			"select fogado_id from relationships where elfogadva=1 and kuldo_id = (select id from users where email = ?1) union "
+			+ "select kuldo_id from relationships where elfogadva=1 and fogado_id = (select id from users where email = ?1))", nativeQuery = true)
 	Set<User> findRelationshipsByEmail(String mail);
 	
 	@Query(value = "select * from users where id = any (\n" + 
@@ -28,9 +27,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	Set<User> findWhoWaitsForMyElfogadva(String email);
 	
 	@Query(value="select email from users where id = any(\n" + 
-			"			select kuldo_id from relationships where fogado_id = (select id from users where email=?1) and elfogadva=1\n" + 
-			"			union\n" + 
-			"			select fogado_id from relationships where kuldo_id = (select id from users where email=?1) and elfogadva=1)", nativeQuery = true)
+			"select kuldo_id from relationships where fogado_id = (select id from users where email=?1) and elfogadva=1 union "
+			+ "select fogado_id from relationships where kuldo_id = (select id from users where email=?1) and elfogadva=1)", nativeQuery = true)
 	List<String> findFriendsByEmail(String mail);
-
 }

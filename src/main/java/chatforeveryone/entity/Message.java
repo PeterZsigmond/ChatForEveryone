@@ -6,28 +6,27 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name = "messages")
-public class Message
-{	
+public class Message {
 	@GeneratedValue
 	@Id
 	private Long id;
-	
+
 	@OneToOne
 	private User kuldo;
-	
+
 	@OneToOne
 	private User fogado;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String message;
-	
+
 	private Date date;
-	
-	private Message() {}
+
+	private Message() {
+	}
 
 	public Long getId() {
 		return id;
@@ -73,7 +72,6 @@ public class Message
 	public String toString() {
 		return "Message [id=" + id + ", kuldo=" + kuldo + ", fogado=" + fogado + ", message=" + message + ", date="
 				+ date + "]";
-	}	
-	
-	
+	}
+
 }

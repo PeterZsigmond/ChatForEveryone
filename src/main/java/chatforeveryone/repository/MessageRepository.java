@@ -12,11 +12,11 @@ import chatforeveryone.entity.Message;
 
 public interface MessageRepository extends CrudRepository<Message, Long>
 {
-	@Query(value="select * from messages where id = any(\r\n" + 
-			"select id from messages where kuldo_id = (select id from users where email=?1) and fogado_id = (select id from users where email=?2)\r\n" + 
-			"UNION\r\n" + 
-			"select id from messages where kuldo_id = (select id from users where email=?2) and fogado_id = (select id from users where email=?1))\r\n" + 
-			"order by date", nativeQuery = true)
+	@Query(value="select * from messages where id = any("
+			+ "select id from messages where kuldo_id = (select id from users where email=?1)"
+			+ "and fogado_id = (select id from users where email=?2)"
+			+ "UNION select id from messages where kuldo_id = (select id from users where email=?2)"
+			+ "and fogado_id = (select id from users where email=?1)) order by date", nativeQuery = true)
 	List<Message> getMessagesByEmails(String email1, String email2);
 	
 	

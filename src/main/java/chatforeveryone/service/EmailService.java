@@ -14,10 +14,10 @@ public class EmailService {
 
 	@Value("${email.udvozlo}")
 	private String emailUdvozlo;
-	
+
 	@Value("${spring.mail.username}")
 	private String MESSAGE_FROM;
-	
+
 	@Value("${email.server.full.address}")
 	private String emailServerFullAddress;
 
@@ -36,7 +36,8 @@ public class EmailService {
 			message.setFrom(MESSAGE_FROM);
 			message.setTo(email);
 			message.setSubject("Sikeres regisztrálás");
-			message.setText("Kedves " + nick + "!\n\nKérlek akitváld a felhasználód a következő linken: " + emailServerFullAddress + "/activation/" + generatedKey + "\n\nÜdvözlettel: " + emailUdvozlo);
+			message.setText("Kedves " + nick + "!\n\nKérlek akitváld a felhasználód a következő linken: "
+					+ emailServerFullAddress + "/activation/" + generatedKey + "\n\nÜdvözlettel: " + emailUdvozlo);
 			javaMailSender.send(message);
 
 		} catch (Exception e) {

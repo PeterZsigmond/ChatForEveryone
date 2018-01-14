@@ -1,14 +1,12 @@
 package chatforeveryone.service;
 
-public class MessageResponse
-{
+public class MessageResponse {
 	private String kuldo;
 	private String uzenet;
-	
-	public MessageResponse(String kuldo, String uzenet)
-	{
-		this.kuldo=kuldo;
-		this.uzenet=uzenet;
+
+	public MessageResponse(String kuldo, String uzenet) {
+		this.kuldo = kuldo;
+		this.uzenet = uzenet;
 	}
 
 	public String getKuldo() {
