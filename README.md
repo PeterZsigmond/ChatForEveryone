@@ -1,6 +1,6 @@
-# Welcome to ChatForEveryone!
+﻿# Welcome to ChatForEveryone!
 
-Hi! I'm Zsigmond P�ter, and this is my first **Spring Boot** project. This is a little chat webapplication, with some REST webservice, written in JAVA.
+Hi! I'm Zsigmond Péter, and this is my first **Spring Boot** project. This is a little chat webapplication, with some REST webservice, written in JAVA.
 
 
 ## Install
@@ -16,6 +16,7 @@ You will need:
  - Run: `java -jar chatforeveryone-0.1.jar`
 ### Configure application.properties
  - Before you first start the program, set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
+---
  - `server.port=` The port that the server is running on. 
  ---
  - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME`
@@ -31,10 +32,10 @@ You will need:
 
 - i18n
 - Profile pic.
-- K�d rendez�s.
-- JS k�d rendez�s.
-- CSS rendez�s, �s form�z�s.
-- Back-end valid�l�s.
+- Kód rendezés.
+- JS kód rendezés.
+- CSS rendezés, és formázás.
+- Back-end validálás.
 - Div class státusz helyére az emailt, jobb oldalt meg a count helyére.
 - Rest api javítása: utolsó üzeneteket kérje csak le.
 - Rest api validation.
