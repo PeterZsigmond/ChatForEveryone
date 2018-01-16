@@ -25,11 +25,9 @@ public class User {
 
 	@Column(nullable = false)
 	private String password;
-
-	@Column
+	
 	private Date registrationDate;
 
-	@Column
 	private String activationCode;
 
 	public User() {

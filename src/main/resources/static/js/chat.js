@@ -106,15 +106,13 @@ function updateFriendList() {
 				url : window.location + "/baratok",
 				success : function(result) {
 					if (result.status == "Done") {
-						$('.list-friends ul').empty();
+						$('.list-friends').empty();
 						$
 								.each(
 										result.data,
 										function(id, barat) {
-											var app_friend = "<li class='friendItem'><div class='info'><div class='user'>"
-													+ barat
-													+ "</div></div></li>";
-											$('.list-friends ul').append(
+											var app_friend = "<li class='friendItem'><div class='info'><div class='user'>" + barat + "</div></div></li>";
+											$('.list-friends').append(
 													app_friend);
 										});
 					}

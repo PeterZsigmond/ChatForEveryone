@@ -17,7 +17,7 @@
       </ul>
 		
 		<div id="signup">   
-          <h1>Regisztráció a program név-be!</h1>
+          <h1>Regisztráció</h1>
           
           <form th:action="@{/registration}" th:object="${user}" method="POST">
           
@@ -31,7 +31,7 @@
         
             <div class="field-wrap">
               <label>
-                Nick név<span class="req">*</span>
+                Felhasználónév<span class="req">*</span>
               </label>
               <input type="text" th:field="*{nickName}" required="true" autocomplete="off" />
             </div>          

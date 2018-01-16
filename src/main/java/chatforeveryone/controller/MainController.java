@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import chatforeveryone.entity.User;
@@ -20,17 +22,11 @@ import chatforeveryone.service.UserService;
 @Controller
 public class MainController {
 
-	@Value("${email.enable.sending}")
-	private boolean emailEnableSending;
-
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private EmailService emailService;
-
 	@RequestMapping("/")
-	public String home(Model model) {
+	public String home() {
 		return "main/chat";
 	}
 
@@ -71,42 +67,43 @@ public class MainController {
 		return "main/kapcsolatok";
 	}
 
-	@RequestMapping(path = "/registration", method = RequestMethod.GET)
-	public String registration(Model model) {
-
+	@GetMapping("/registration")
+	public String registration(Model model)
+	{
 		model.addAttribute("user", new User());
-
 		return "index/registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String reg(@ModelAttribute User user, Model model) {
-		String[] eredmeny = userService.registerUser(user);
-
-		if (emailEnableSending && eredmeny[0] == "successfulRegistration")
-			emailService.sendMessage(user.getEmail(), user.getNickName(), eredmeny[1]);
-
+	@PostMapping("/registration")
+	public String reg(@ModelAttribute User user, Model model)
+	{
+		String registrationError = userService.registerUser(user);
 		model.addAttribute("user", new User());
 
-		if (eredmeny[0] == "successfulRegistration") {
+		if (registrationError.isEmpty())
+		{
 			model.addAttribute("msg", "Sikeres regisztráció!");
 			return "index/login";
-		} else if (eredmeny[0] == "emailAlreadyRegistered") {
-			model.addAttribute("msg", "Ez az e-mail már foglalt!");
+		}
+		else
+		{
+			model.addAttribute("msg", registrationError);
 			return "index/registration";
-		} else
-			return "index/registration";
+		}
 	}
 
 	@RequestMapping("/successfulActivation")
-	public String activated(Model model) {
+	public String activated(Model model)
+	{
 		model.addAttribute("msg", "Sikeres aktiválás!");
 		return "index/login";
 	}
 
-	@RequestMapping(path = "/activation/{code}", method = RequestMethod.GET)
-	public String activation(@PathVariable("code") String code, HttpServletResponse response) {
-		if (code != null && !code.equals("")) {
+	@GetMapping("/activation/{code}")
+	public String activation(@PathVariable("code") String code, HttpServletResponse response)
+	{
+		if (code != null && !code.isEmpty())
+		{
 			String result = userService.userActivationCode(code);
 			if (result.equals("ok"))
 				return "redirect:/successfulActivation";

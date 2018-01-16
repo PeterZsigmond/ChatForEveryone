@@ -10,6 +10,8 @@ import chatforeveryone.entity.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findByEmail(String email);
+	
+	User findByNickName(String nick);
 
 	User findByActivationCode(String code);
 	

@@ -22,6 +22,14 @@ body {
 	background: linear-gradient(to top, #00f260, #0575e6);
 }
 
+#kapcsolatok table {
+	border-collapse: collapse;
+}
+
+#kapcsolatok table, td, th {
+	border: 1px solid black;
+}
+
 .ui {
 	margin: 10px auto;
 	width: 745px;

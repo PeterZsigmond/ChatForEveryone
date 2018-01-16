@@ -6,60 +6,55 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Chat for Everyone</title>
+	
 	<link rel="stylesheet" href="css/chat.css"></link>
-	<style>
-		table {
-			border-collapse: collapse;
-		}
-		
-		table, td, th {
-			border: 1px solid black;
-		}
-	</style>
+	
+	<link rel="icon" href="images/icon.ico" type="image/x-icon" />
 </head>
 
 <body>
-	<a href="/">Vissza</a>
-
-	<h1 th:text="${hiba}"></h1>
-	<form th:action="@{/kapcsolatok}" method="post">
-		E-mail címe, akit fel akarsz venni:<input name="email" type="email" required="true" autocomplete="off" />
-		<button>Ok</button>
-	</form>
-
-	<br />
-	<br />
-	<br />
-	<br />
-
-	<table>
-		<tr>
-			<th>Emberek akiknek már elküldted a meghívódat, de még nem
-				erősítették meg:</th>
-		</tr>
-		<tr th:each="user : ${requested}">
-			<td th:text="${user.email}"></td>
-		</tr>
-	</table>
-
-	<br />
-	<br />
-	<br />
-	<br />
-
-	<p style="font-weight: bold;">Emberek, akik a visszaigazolásodra
-		várnak:</p>
-
-	<ul
-		style="list-style-type: none; list-style-type: none; margin: 0; padding: 0;">
-		<li th:each="user : ${waitsForMe}">
-			<form th:action="@{/kapcsolatok}" method="post">
-				<span th:text="${user.email}"></span> <input type="hidden"
-					name="email" th:value="${user.email}" /> <input type="submit"
-					value="Visszaigazolás" />
-			</form> <br />
-		</li>
-	</ul>
-
+	<div id="kapcsolatok">
+		<a href="/">Vissza</a>
+	
+		<h1 th:text="${hiba}"></h1>
+		<form th:action="@{/kapcsolatok}" method="post">
+			E-mail címe, akit fel akarsz venni:<input name="email" type="email" required="true" autocomplete="off" />
+			<button>Ok</button>
+		</form>
+	
+		<br />
+		<br />
+		<br />
+		<br />
+	
+		<table>
+			<tr>
+				<th>Emberek akiknek már elküldted a meghívódat, de még nem
+					erősítették meg:</th>
+			</tr>
+			<tr th:each="user : ${requested}">
+				<td th:text="${user.email}"></td>
+			</tr>
+		</table>
+	
+		<br />
+		<br />
+		<br />
+		<br />
+	
+		<p style="font-weight: bold;">Emberek, akik a visszaigazolásodra
+			várnak:</p>
+	
+		<ul
+			style="list-style-type: none; list-style-type: none; margin: 0; padding: 0;">
+			<li th:each="user : ${waitsForMe}">
+				<form th:action="@{/kapcsolatok}" method="post">
+					<span th:text="${user.email}"></span> <input type="hidden"
+						name="email" th:value="${user.email}" /> <input type="submit"
+						value="Visszaigazolás" />
+				</form> <br />
+			</li>
+		</ul>
+	</div>
 </body>
 </html>

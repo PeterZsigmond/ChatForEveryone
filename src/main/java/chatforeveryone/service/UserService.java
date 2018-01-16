@@ -23,6 +23,12 @@ import chatforeveryone.repository.UserRepository;
 @Service
 public class UserService implements UserDetailsService {
 
+	@Value("${email.enable.sending}")
+	private boolean emailEnableSending;	
+
+	@Autowired
+	private EmailService emailService;
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -45,42 +51,68 @@ public class UserService implements UserDetailsService {
 		return new UserDetailsImpl(user);
 	}
 
+	public String registerUser(User userToRegister)
+	{
+		String email, name, password;
+		email = userToRegister.getEmail();
+		name = userToRegister.getNickName();
+		password = userToRegister.getPassword();
+		
+		User userCheckEmail = userRepository.findByEmail(userToRegister.getEmail());
+		User userCheckNickName = userRepository.findByNickName(userToRegister.getNickName());
+		
+		if(email == null || email.equals("") || email.length() < 5 || email.length() > 100 || !email.contains("@") || !email.contains("."))
+		{
+			return "Nem megfelelő e-mail!";
+		}
+		else if(userCheckEmail != null)
+		{
+			return "Az e-mail már foglalt!";
+		}
+		else if(name == null || name.equals("") || name.length() < 3 || name.length() > 50)
+		{
+			return "Nem megfelelő felhasználónév!";
+		}
+		else if(userCheckNickName != null)
+		{
+			return "Az felhasználónév már foglalt!";
+		}
+		else if(password == null || password.equals("") || password.length() < 3 || password.length() > 100)
+		{
+			return "Nem megfelelő jelszó!";
+		}
+		else
+		{		
+			Role userRole = roleRepository.findByRole(USER_ROLE);
+			
+			if (userRole == null)
+			{
+				roleRepository.save(new Role(USER_ROLE));
+			}		
+			
+			String generatedKey = generateKey();
+			
+			userToRegister.setPassword(hashPassword(password));
+			userToRegister.setRole(userRole);			
+			userToRegister.setActivationCode(generatedKey);
+			userToRegister.setRegistrationDate(new Date());
+			
+			userRepository.save(userToRegister);
+			
+			sendRegistrationEmail(email, name, generatedKey);		
+			
+			return "";
+		}
+	}
+	
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
-	public String[] registerUser(User userToRegister) {
-		User userCheck = userRepository.findByEmail(userToRegister.getEmail());
-		String[] ret = new String[2];
-		if (userCheck != null) {
-			ret[0] = "emailAlreadyRegistered";
-			ret[1] = "";
-			return ret;
-		} else {
-			Role userRole = roleRepository.findByRole(USER_ROLE);
-			if (userRole != null) {
-				userToRegister.setRole(userRole);
-			} else {
-				Role newUserRole = new Role(USER_ROLE);
-				roleRepository.save(newUserRole);
-				userToRegister.setRole(newUserRole);
-			}
-
-			String hashPassword = hashPassword(userToRegister.getPassword());
-			userToRegister.setPassword(hashPassword);
-
-			String generatedKey = generateKey();
-			userToRegister.setActivationCode(generatedKey);
-
-			userToRegister.setRegistrationDate(new Date());
-
-			userRepository.save(userToRegister);
-
-			ret[0] = "successfulRegistration";
-			ret[1] = generatedKey;
-
-			return ret;
-		}
+	
+	public void sendRegistrationEmail(String email, String name, String code)
+	{
+		if(emailEnableSending)
+			emailService.sendMessage(email, name, code);		
 	}
 
 	public List<String> findFriendsByEmail(String email) {
