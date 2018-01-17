@@ -28,8 +28,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 			"select kuldo_id from relationships where fogado_id=(select id from users where email=?1) and elfogadva=0)", nativeQuery = true)
 	Set<User> findWhoWaitsForMyElfogadva(String email);
 	
-	@Query(value="select email from users where id = any(\n" + 
+	@Query(value="select * from users where id = any(\n" + 
 			"select kuldo_id from relationships where fogado_id = (select id from users where email=?1) and elfogadva=1 union "
 			+ "select fogado_id from relationships where kuldo_id = (select id from users where email=?1) and elfogadva=1)", nativeQuery = true)
-	List<String> findFriendsByEmail(String mail);
+	List<User> findFriendsByEmail(String mail);
 }

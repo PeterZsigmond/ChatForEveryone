@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chatforeveryone.entity.Message;
+import chatforeveryone.service.FriendResponse;
 import chatforeveryone.service.MessageResponse;
 import chatforeveryone.service.MessageService;
 import chatforeveryone.service.RESTResponse;
@@ -33,9 +34,9 @@ public class MainRestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user = auth.getName();
 
-		List<String> baratok = userService.findFriendsByEmail(user);
+		List<FriendResponse> friends = userService.sendFriendsByEmail(user);
 
-		RESTResponse response = new RESTResponse("Done", baratok);
+		RESTResponse response = new RESTResponse("Done", friends);
 
 		return response;
 	}

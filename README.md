@@ -41,6 +41,9 @@ You will need:
 - Rest api validation.
 - MainController rendezés. (successful act, nem kell)
 - Ha az email ki van kapcsolva ne kelljen aktiválni?
+- Rest msg-nél ne a rest szortírozza a msgresponse-t.
+- Kódban csak angol.
+- Message-nel ne emailt írjon, h ki küldte.
 
 ### Thank you for reading.
 

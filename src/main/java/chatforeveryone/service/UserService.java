@@ -1,5 +1,6 @@
 package chatforeveryone.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -116,8 +117,17 @@ public class UserService implements UserDetailsService {
 			emailService.sendMessage(email, name, code);		
 	}
 
-	public List<String> findFriendsByEmail(String email) {
-		return userRepository.findFriendsByEmail(email);
+	public List<FriendResponse> sendFriendsByEmail(String email) {
+		
+		List<User> friends = userRepository.findFriendsByEmail(email);
+		List<FriendResponse> friendResponse = new ArrayList<>();
+		
+		for(User friend : friends)
+		{
+			friendResponse.add(new FriendResponse(friend.getEmail(), friend.getNickName()));
+		}
+		
+		return friendResponse;
 	}
 
 	public Set<User> findWhoUserSentButNotYetElfogadva(String email) {

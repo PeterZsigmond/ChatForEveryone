@@ -3,26 +3,25 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
-<head>
-    <meta charset="UTF-8" />	
-    <title>ChatForEveryone</title>
-    
-	<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" /> 
-    
-    <link rel="icon" href="images/icon.ico" type="image/x-icon" />         
-</head>
-
-<body>
-
-    <div class="form" layout:fragment="index"></div>
-
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	
+	<head>
+		<meta charset="UTF-8" />
+		<title>ChatForEveryone</title>
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
  			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
  			crossorigin="anonymous"></script>
-    <script  src="js/index.js"></script>
+		
+		<link rel="icon" href="images/icon.ico" type="image/x-icon" />
+	</head>
+	
+<body>
+
+    <div layout:fragment="main"></div>    
+ 			
 </body>
 
 <!--

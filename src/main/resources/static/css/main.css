@@ -83,6 +83,12 @@ body {
 	background: #434753;
 }
 
+.ui .left-menu p
+{
+	margin: 15px 0px 0px 10px;
+	color: white;
+}
+
 .ui .chat {
 	width: 70%;
 	height: 100%;
@@ -105,6 +111,7 @@ body {
 	font-weight: 600;
 	color: #434753;
 	height: 50%;
+	margin: 15px 0px 0px 10px;
 }
 
 .ui .chat .info .count {
@@ -129,6 +136,19 @@ body {
 
 .ui .list-friends img {
 	margin: 5px;
+}
+
+.ui .list-friends li
+{
+	background: #242424;
+	border: 2px solid #242424;
+    border-radius: 25px;
+    padding: 5px;
+}
+
+.ui .list-friends li:first-child
+{
+	margin-top: 10px;
 }
 
 .ui .list-friends>li {
