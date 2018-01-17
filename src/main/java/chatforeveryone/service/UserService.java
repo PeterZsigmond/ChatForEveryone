@@ -88,6 +88,7 @@ public class UserService implements UserDetailsService {
 			if (userRole == null)
 			{
 				roleRepository.save(new Role(USER_ROLE));
+				userRole = roleRepository.findByRole(USER_ROLE);
 			}		
 			
 			String generatedKey = generateKey();

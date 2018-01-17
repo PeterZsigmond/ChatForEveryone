@@ -22,7 +22,7 @@ You will need:
  - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME`
  - `spring.datasource.username/password=` MySQL username/password.
  ---
- - `email.enable.sending=true` Set this to true, to send emails.
+ - `email.enable.sending=` Set this to `true`, to send e-mails.
  - `email.server.full.address=` The URL of the server. This will be sent in the email.
  - `spring.mail.host: smtp.gmail.com` The mail server.
  - `spring.mail.port: 25` The mail server's port.
@@ -39,6 +39,8 @@ You will need:
 - Div class státusz helyére az emailt, jobb oldalt meg a count helyére.
 - Rest api javítása: utolsó üzeneteket kérje csak le.
 - Rest api validation.
+- MainController rendezés. (successful act, nem kell)
+- Ha az email ki van kapcsolva ne kelljen aktiválni?
 
 ### Thank you for reading.
 
