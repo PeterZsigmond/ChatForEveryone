@@ -241,6 +241,7 @@ body {
 
 .ui .messages li .time {
 	color: #b7bccf;
+	margin-right: 5px;
 }
 
 .ui .messages li .message {

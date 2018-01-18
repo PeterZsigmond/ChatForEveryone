@@ -51,8 +51,9 @@ public class MainRestController {
 
 		List<MessageResponse> response = new ArrayList<>();
 
-		for (Message m : messages) {
-			response.add(new MessageResponse(m.getKuldo().getEmail(), m.getMessage()));
+		for (Message m : messages)
+		{
+			response.add(new MessageResponse(m.getKuldo().getEmail(), m.getKuldo().getNickName(), m.getDate(), m.getMessage()));
 		}
 
 		return new RESTResponse("Done", response);

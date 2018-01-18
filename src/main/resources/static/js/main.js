@@ -51,53 +51,68 @@ function sendMessage() {
     }
 }
 
-function updateBeszelgetes() {
-    if (eppenBeszel[0] != "") {
-        $
-            .ajax({
-                type: "GET",
+function updateBeszelgetes()
+{
+    if (eppenBeszel[0] != "")
+    {
+        $.ajax({type: "GET",
                 url: window.location + "/beszelgetes?vele=" + eppenBeszel[0],
-                success: function(result) {
-                    if (result.status == "Done") {
+                success: function(result)
+                {
+                    if (result.status == "Done")
+                    {
                         res = JSON.stringify(result.data);
 
-                        if (jelenlegiMsg != res) {
+                        if (jelenlegiMsg != res)
+                        {
                             jelenlegiMsg = res;
 
                             $('.messages').empty();
-                            $
-                                .each(
-                                    result.data,
-                                    function(id, obj) {
+                            $.each(result.data,
+                                   function(id, obj)
+                                   {
+                            	    	var msgs = $(".messages").append("<li class='i'><div class='head'><span class='time'>" + formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
+                                    									"</span></div><div class='message'>" + obj.message + "</div></li>");
+                                    	$('.messages').append(msgs);
+                                    	clearResizeScroll();
 
-                                        if (obj.kuldo != eppenBeszel[0])
-                                            var app = $(".messages")
-                                                .append(
-                                                    "<li class='i'><div class='head'><span class='name'>" +
-                                                    obj.kuldo +
-                                                    "</span></div><div class='message'>" +
-                                                    obj.uzenet +
-                                                    "</div></li>");
-                                        else
-                                            var app = $(".messages")
-                                                .append(
-                                                    "<li class='mess'><div class='head'><span class='name'>" +
-                                                    obj.kuldo +
-                                                    "</span></div><div class='message'>" +
-                                                    obj.uzenet +
-                                                    "</div></li>");
-
-                                        $('.messages').append(app);
-
-                                        clearResizeScroll();
-
-                                    });
-
+                                   });
                         }
                     }
                 }
             });
     }
+}
+
+function formatDateToMessages(date)
+{
+	var date2 = new Date(date);
+	var today = new Date();
+	
+	var year = date2.getFullYear();
+	var month = date2.getMonth()+1;
+	var day = date2.getDate();
+	var hour = date2.getHours();
+	var minute = date2.getMinutes();
+	
+	month = putZeroToLeft(month);
+	day = putZeroToLeft(day);
+	hour = putZeroToLeft(hour);
+	minute = putZeroToLeft(minute);
+	
+	if(year < today.getFullYear())
+		return year+"."+month+"."+day+". "+hour+":"+minute;
+	else if(month != (today.getMonth()+1) || day != today.getDate())
+		return month+"."+day+". "+hour+":"+minute;
+	else
+		return "Ma, "+hour+":"+minute;	
+}
+
+function putZeroToLeft(number)
+{
+	if(number < 10)
+		return '0'+number;
+	return number;
 }
 
 function updateFriendList() {

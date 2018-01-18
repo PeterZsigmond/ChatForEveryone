@@ -36,14 +36,14 @@ You will need:
 - JS kód rendezés.
 - CSS rendezés, és formázás.
 - Back-end validálás.
-- Div class státusz helyére az emailt, jobb oldalt meg a count helyére.
+- **KÉSZ** - Div class státusz helyére az emailt, jobb oldalt meg a count helyére.
 - Rest api javítása: utolsó üzeneteket kérje csak le.
 - Rest api validation.
 - MainController rendezés. (successful act, nem kell)
-- Ha az email ki van kapcsolva ne kelljen aktiválni?
-- Rest msg-nél ne a rest szortírozza a msgresponse-t.
+- Ha az email ki van kapcsolva ne kelljen aktiválni? Email küdés new thread.
+- Rest msg-nél ne a rest szortírozza a msgresponse-t, hanem a service.
 - Kódban csak angol.
-- Message-nel ne emailt írjon, h ki küldte.
+- **KÉSZ** - Message-nel ne emailt írjon, h ki küldte, dátumot.
 
 ### Thank you for reading.
 

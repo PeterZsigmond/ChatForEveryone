@@ -1,27 +1,50 @@
 package chatforeveryone.service;
 
+import java.util.Date;
+
 public class MessageResponse {
-	private String kuldo;
-	private String uzenet;
+	private String email;
+	private String name;
+	private Date date;
+	private String message;
 
-	public MessageResponse(String kuldo, String uzenet) {
-		this.kuldo = kuldo;
-		this.uzenet = uzenet;
+	public MessageResponse(String email, String name, Date date, String message) {
+
+		this.email = email;
+		this.name = name;
+		this.date = date;
+		this.message = message;
 	}
 
-	public String getKuldo() {
-		return kuldo;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setKuldo(String kuldo) {
-		this.kuldo = kuldo;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getUzenet() {
-		return uzenet;
+	public String getName() {
+		return name;
 	}
 
-	public void setUzenet(String uzenet) {
-		this.uzenet = uzenet;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
