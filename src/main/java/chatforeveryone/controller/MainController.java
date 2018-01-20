@@ -2,8 +2,6 @@ package chatforeveryone.controller;
 
 import java.util.Set;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import chatforeveryone.entity.User;
 import chatforeveryone.service.UserService;
@@ -26,12 +23,14 @@ public class MainController {
 	private UserService userService;
 
 	@RequestMapping("/")
-	public String home() {
+	public String home()
+	{
 		return "main/chat";
 	}
 
-	@RequestMapping(path = "/kapcsolatok", method = RequestMethod.GET)
-	public String kapcsolatok(Model model) {
+	@GetMapping("/kapcsolatok")
+	public String kapcsolatok(Model model)
+	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String user = auth.getName();
 
@@ -46,9 +45,11 @@ public class MainController {
 		return "main/kapcsolatok";
 	}
 
-	@RequestMapping(path = "/kapcsolatok", method = RequestMethod.POST)
-	public String kapcsolatok(@ModelAttribute("email") String email, HttpServletResponse response, Model model) {
-		if (email != null && !email.equals("")) {
+	@PostMapping("/kapcsolatok")
+	public String kapcsolatok(@ModelAttribute("email") String email, Model model)
+	{
+		if(UserService.isValidEmail(email))
+		{
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			String user = auth.getName();
 
@@ -60,8 +61,6 @@ public class MainController {
 
 			Set<User> waitsForMe = userService.findWhoWaitsForMyElfogadva(user);
 			model.addAttribute("waitsForMe", waitsForMe);
-
-			return "main/kapcsolatok";
 		}
 
 		return "main/kapcsolatok";
@@ -75,12 +74,12 @@ public class MainController {
 	}
 
 	@PostMapping("/registration")
-	public String reg(@ModelAttribute User user, Model model)
+	public String registration(@ModelAttribute User user, Model model)
 	{
 		String registrationError = userService.registerUser(user);
 		model.addAttribute("user", new User());
 
-		if (registrationError.isEmpty())
+		if(registrationError.isEmpty())
 		{
 			model.addAttribute("msg", "Sikeres regisztráció! (Az aktiváló kódot elküldtük az e-mail címedre.)");
 			return "index/login";
@@ -100,7 +99,7 @@ public class MainController {
 	}
 
 	@GetMapping("/activation/{code}")
-	public String activation(@PathVariable("code") String code, HttpServletResponse response)
+	public String activation(@PathVariable("code") String code)
 	{
 		if (code != null && !code.isEmpty())
 		{
@@ -113,5 +112,4 @@ public class MainController {
 
 		return "redirect:/";
 	}
-
 }

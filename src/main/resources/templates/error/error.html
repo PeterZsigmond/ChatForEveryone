@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8" />	
+    <title>ChatForEveryone</title> 
+    
+    <link rel="icon" href="images/icon.ico" type="image/x-icon" /> 
+    <style>
+    		 .hidden
+    		 {
+    		  visibility: hidden;
+    		 }
+			 #center
+			 {
+			 	position: fixed;
+			 	top: 50%;
+			 	left: 50%;
+			 	transform: translate(-50%, -50%);
+			 	background-color: black;
+			 	color: white;
+			}
+			#center a:hover, a:active
+			{
+    			background-color: red;
+			}
+			#center a:link, a:visited
+			{
+			    background-color: #f44336;
+			    color: white;
+			    padding: 14px 25px;
+			    text-align: center;
+			    text-decoration: none;
+			    display: inline-block;
+			}
+    </style>
+</head>
+
+<body>
+	<div id="center">
+		<h1>Hiba történt:</h1>
+		<h2 id="msg"></h2>
+		<a href="/">Vissza</a>
+	</div>
+	
+	<p th:text="${error}" class ="hidden" id="error"></p>	
+	<p th:text="${status}" class ="hidden" id="status"></p>	
+	
+	<script>
+		var msg = document.getElementById("status").innerHTML + " - " + document.getElementById("error").innerHTML;
+		document.getElementById("msg").innerHTML = msg;
+	</script>
+</body>
+
+</html>

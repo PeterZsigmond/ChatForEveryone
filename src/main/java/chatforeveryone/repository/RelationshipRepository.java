@@ -21,5 +21,5 @@ public interface RelationshipRepository extends CrudRepository<Relationship, Lon
 	
 	@Query(value = "select * from relationships where kuldo_id = (select id from users where email = ?1) and fogado_id = (select id from users where email = ?2) union "
 			+ "select * from relationships where kuldo_id = (select id from users where email = ?2) and fogado_id = (select id from users where email = ?1);", nativeQuery=true)
-	Relationship findRelationshipByTwoUser(String c, String d);
+	Relationship findRelationshipBetweenTwoUser(String c, String d);
 }

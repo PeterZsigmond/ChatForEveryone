@@ -1,6 +1,5 @@
 package chatforeveryone.entity;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +24,6 @@ public class User {
 
 	@Column(nullable = false)
 	private String password;
-	
-	private Date registrationDate;
 
 	private String activationCode;
 
@@ -72,15 +69,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
-
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
-
+	
 	public String getActivationCode() {
 		return activationCode;
 	}

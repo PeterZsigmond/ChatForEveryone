@@ -41,7 +41,7 @@ function sendMessage() {
         if (uzenet != "") {
             $.ajax({
                 type: "GET",
-                url: window.location + "/uzenet?kinek=" + eppenBeszel[0] +
+                url: window.location + "/api/uzenet?kinek=" + eppenBeszel[0] +
                     "&szoveg=" + uzenet,
                 success: updateBeszelgetes()
             });
@@ -56,10 +56,10 @@ function updateBeszelgetes()
     if (eppenBeszel[0] != "")
     {
         $.ajax({type: "GET",
-                url: window.location + "/beszelgetes?vele=" + eppenBeszel[0],
+                url: window.location + "/api/beszelgetes?vele=" + eppenBeszel[0],
                 success: function(result)
                 {
-                    if (result.status == "Done")
+                    if (result.status == "Ok")
                     {
                         res = JSON.stringify(result.data);
 
@@ -119,9 +119,9 @@ function updateFriendList() {
     $
         .ajax({
             type: "GET",
-            url: window.location + "/baratok",
+            url: window.location + "/api/baratok",
             success: function(result) {
-                if (result.status == "Done") {
+                if (result.status == "Ok") {
                     $('.list-friends').empty();
                     $.each(result.data,
                             function(id, user) {

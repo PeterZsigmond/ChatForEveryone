@@ -1,7 +1,6 @@
 package chatforeveryone.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -51,7 +50,7 @@ public class UserService implements UserDetailsService {
 
 		return new UserDetailsImpl(user);
 	}
-
+	
 	public String registerUser(User userToRegister)
 	{
 		String email, name, password;
@@ -59,14 +58,15 @@ public class UserService implements UserDetailsService {
 		name = userToRegister.getNickName();
 		password = userToRegister.getPassword();
 		
+		if(!isValidEmail(email))
+		{			
+			return "Nem megfelelő e-mail!";
+		}
+		
 		User userCheckEmail = userRepository.findByEmail(userToRegister.getEmail());
 		User userCheckNickName = userRepository.findByNickName(userToRegister.getNickName());
 		
-		if(email == null || email.equals("") || email.length() < 5 || email.length() > 100 || !email.contains("@") || !email.contains("."))
-		{
-			return "Nem megfelelő e-mail!";
-		}
-		else if(userCheckEmail != null)
+		if(userCheckEmail != null)
 		{
 			return "Az e-mail már foglalt!";
 		}
@@ -97,7 +97,6 @@ public class UserService implements UserDetailsService {
 			userToRegister.setPassword(hashPassword(password));
 			userToRegister.setRole(userRole);			
 			userToRegister.setActivationCode(generatedKey);
-			userToRegister.setRegistrationDate(new Date());
 			
 			userRepository.save(userToRegister);
 			
@@ -105,9 +104,15 @@ public class UserService implements UserDetailsService {
 			
 			return "";
 		}
+	}	
+
+	public static boolean isValidEmail(String email)
+	{
+		return (email != null && !email.equals("") && email.length() >= 5 && email.length() <= 100 && email.contains("@") && email.contains("."));			
 	}
 	
-	public User findByEmail(String email) {
+	public User findByEmail(String email)
+	{
 		return userRepository.findByEmail(email);
 	}
 	
@@ -116,8 +121,16 @@ public class UserService implements UserDetailsService {
 		if(emailEnableSending)
 			emailService.sendMessage(email, name, code);		
 	}
+	
+	public boolean isThereRelationshipBetweenTwo(String email1, String email2)
+	{
+		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(email1, email2);
+		
+		return (rship != null && rship.isElfogadva());
+	}
 
-	public List<FriendResponse> sendFriendsByEmail(String email) {
+	public List<FriendResponse> sendFriendsByEmail(String email)
+	{
 		
 		List<User> friends = userRepository.findFriendsByEmail(email);
 		List<FriendResponse> friendResponse = new ArrayList<>();
@@ -130,15 +143,18 @@ public class UserService implements UserDetailsService {
 		return friendResponse;
 	}
 
-	public Set<User> findWhoUserSentButNotYetElfogadva(String email) {
+	public Set<User> findWhoUserSentButNotYetElfogadva(String email)
+	{
 		return userRepository.findWhoUserSentButNotYetElfogadva(email);
 	}
 
-	public Set<User> findWhoWaitsForMyElfogadva(String email) {
+	public Set<User> findWhoWaitsForMyElfogadva(String email)
+	{
 		return userRepository.findWhoWaitsForMyElfogadva(email);
 	}
 
-	public String makeRelationship(String _kuldo, String _fogado) {
+	public String makeRelationship(String _kuldo, String _fogado)
+	{
 		User kuldo_, fogado_;
 
 		kuldo_ = userRepository.findByEmail(_kuldo);
@@ -155,40 +171,48 @@ public class UserService implements UserDetailsService {
 
 		Relationship rship = relationshipRepository.checkForRelationshipBetweenTwo(kuldo, fogado);
 
-		if (rship != null) {
+		if (rship != null)
+		{
 			if (kuldo.equals(rship.getFogado().getEmail()))
 				updateRelationshipToElfogadva(kuldo, fogado);
 			else
 				return "Már küldtél neki!";
-		} else
+		}
+		else
 			createNewRelationship(kuldo, fogado);
 
 		return "";
 	}
 
-	public void updateRelationshipToElfogadva(String a, String b) {
-		Relationship rship = relationshipRepository.findRelationshipByTwoUser(a, b);
+	public void updateRelationshipToElfogadva(String a, String b)
+	{
+		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(a, b);
 		rship.setElfogadva(true);
 		relationshipRepository.save(rship);
 	}
 
-	public void createNewRelationship(String ki, String kit) {
+	public void createNewRelationship(String ki, String kit)
+	{
 		relationshipRepository.createNewRelationship(ki, kit);
 	}
 
-	public Set<User> findRelationshipsByEmail(String email) {
+	public Set<User> findRelationshipsByEmail(String email)
+	{
 		return userRepository.findRelationshipsByEmail(email);
 	}
 
-	public String hashPassword(String password) {
+	public String hashPassword(String password)
+	{
 		return new BCryptPasswordEncoder().encode(password);
 	}
 
-	public String generateKey() {
+	public String generateKey()
+	{
 		Random random = new Random();
 		char[] word = new char[50];
-		for (int j = 0; j < word.length; j++) {
-			word[j] = (char) ('a' + random.nextInt(26));
+		for (int i = 0; i < word.length; i++)
+		{
+			word[i] = (char) ('a' + random.nextInt(26));
 		}
 
 		return new String(word);
@@ -197,7 +221,7 @@ public class UserService implements UserDetailsService {
 	public String userActivationCode(String code) {
 		User user = userRepository.findByActivationCode(code);
 		if (user == null)
-			return "noresult";
+			return "";
 
 		user.setActivationCode("");
 		userRepository.save(user);

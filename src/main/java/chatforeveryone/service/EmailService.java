@@ -8,12 +8,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-@Service//
-public class EmailService {
+@Service
+public class EmailService
+{
 	private final Log log = LogFactory.getLog(this.getClass());
 
-	@Value("${email.udvozlo}")
-	private String emailUdvozlo;
+	@Value("${email.welcomer}")
+	private String emailWelcomer;
 
 	@Value("${spring.mail.username}")
 	private String MESSAGE_FROM;
@@ -36,8 +37,7 @@ public class EmailService {
 			message.setFrom(MESSAGE_FROM);
 			message.setTo(email);
 			message.setSubject("Sikeres regisztrálás");
-			message.setText("Kedves " + nick + "!\n\nKérlek akitváld a felhasználód a következő linken: "
-					+ emailServerFullAddress + "/activation/" + generatedKey + "\n\nÜdvözlettel: " + emailUdvozlo);
+			message.setText("Kedves " + nick + "!\n\nKérlek akitváld a felhasználód a következő linken: " + emailServerFullAddress + "/activation/" + generatedKey + "\n\nÜdvözlettel: " + emailWelcomer);
 			javaMailSender.send(message);
 
 		} catch (Exception e) {
