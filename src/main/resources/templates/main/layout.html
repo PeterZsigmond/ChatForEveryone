@@ -10,17 +10,41 @@
 		
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
 		<link rel="stylesheet" href="css/main.css" />
-		
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
- 			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
- 			crossorigin="anonymous"></script>
+				
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		
 		<link rel="icon" href="images/icon.ico" type="image/x-icon" />
 	</head>
 	
 <body>
+		<div id="fejlec">
+				<div class="fejleclogo"><img src="images/icon.png" onclick="location.href='/'" /></div>
+				<ul>					
+						<li id="active_chat"><a href="/">Chat</a></li>
+						<li id="active_relationships"><a href="/kapcsolatok">Kapcsolatok</a></li>
+						<li class="fejleclng">
+							<form sec:authorize="isAuthenticated()" id="frmlogout" th:action="@{/logout}" method="post" class="form-inline">
+								<a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Kijelentkezés</a>
+							</form>
+						</li>
+				</ul>
+		</div>
+	
 
-    <div layout:fragment="main"></div>    
+    <div id="frag" layout:fragment="main"></div>   
+    
+    <div id="lablec">
+		<p><a href="https://github.com/PeterZsigmond" target="_blank">Zsigmond Péter</a>, 2017</p>
+	</div>
+    
+    
+    <script>
+	    var active = $("#active").text();
+	    if(active == "chat")
+	    	$("#active_chat").addClass("aktiv");
+	    if(active == "relationships")
+	    	$("#active_relationships").addClass("aktiv");
+    </script>
  			
 </body>
 

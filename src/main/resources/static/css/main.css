@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import
 	url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400);
 
@@ -9,6 +10,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	outline: 0
 }
 
 html {
@@ -18,8 +20,14 @@ html {
 body {
 	overflow: hidden;
 	font-family: 'Open Sans', sans-serif;
-	background: -webkit-linear-gradient(to top, #00f260, #0575e6);
-	background: linear-gradient(to top, #00f260, #0575e6);
+	background-color: #F7F7F7;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%
 }
 
 #kapcsolatok table {
@@ -28,6 +36,11 @@ body {
 
 #kapcsolatok table, td, th {
 	border: 1px solid black;
+}
+
+#frag
+{
+	padding-top:50px;
 }
 
 .ui {
@@ -73,20 +86,6 @@ body {
 	box-sizing: border-box;
 	margin: 15px 10px;
 	color: #fff;
-}
-
-.ui .left-menu {
-	width: 29%;
-	box-sizing: content-box;
-	padding-right: 1%;
-	height: 100%;
-	background: #434753;
-}
-
-.ui .left-menu p
-{
-	margin: 15px 0px 0px 10px;
-	color: white;
 }
 
 .ui .chat {
@@ -140,7 +139,7 @@ body {
 
 .ui .list-friends li
 {
-	background: #242424;
+	background: white;
 	border: 2px solid #242424;
     border-radius: 25px;
     padding: 5px;
@@ -169,14 +168,15 @@ body {
 }
 
 .ui .list-friends .user {
-	color: #fff;
+	color: black;
 	margin-top: 12px;
+	font-size: 14px;
 }
 
 .ui .list-friends .status {
 	position: relative;
 	margin-left: 14px;
-	color: #a8adb3;
+	color: black;
 }
 
 .ui .list-friends .off:after, .ui .list-friends .on:after {
@@ -360,4 +360,137 @@ body {
 
 .ui i.fa-picture-o {
 	margin-left: 5%;
+}
+
+#fejlec {
+    width: 100%;
+    min-width: 795px;
+    height: 50px;
+    position: fixed;
+    background-color: #023A5B;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .52);
+    z-index: 5001;
+    overflow: visible
+}
+
+#fejlec .fejleclogo {
+    margin-top: 1px;
+    float: left
+}
+
+#fejlec .fejleclng {
+    float: right;
+/*     margin-top: 10px; */
+    margin-right: 10px
+}
+
+#fejlec ul {
+    list-style: none;
+    overflow: hidden
+}
+
+#fejlec li {
+    float: left
+}
+
+#fejlec li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    text-align: center;
+    padding: 15px 10px
+}
+
+#fejlec li:first-child {
+    margin-left: 10px
+}
+
+#fejlec a:hover {
+    background-color: #034a74
+}
+
+#fejlec li a:hover:not(.aktiv) {
+    background-color: #034a74
+}
+
+#fejlec .aktiv {
+    background-color: #034a74;
+}
+
+#leftpanel {
+    width: 17%;
+    float: left;
+    margin: 0 auto;
+    padding: 0;
+    width: 29%;
+	box-sizing: content-box;
+	padding-right: 1%;
+	height: 100%;
+	background: #434753;
+}
+
+#leftpanel ul {
+    width: 100%;
+    list-style: none;
+    margin: 0 auto;
+    background-color: #fff
+}
+
+#leftpanel li {
+    border-left: 3px solid #d7d8da;
+    border-top: 1px solid #e6e6e6;
+    border-right: 1px solid #e6e6e6;
+    padding: 0 0 0 2%;
+    height: 55px
+}
+
+#leftpanel li:last-child {
+    border-bottom: 1px solid #e6e6e6
+}
+
+#leftpanel li:hover {
+    background-color: #f6f6f6;
+    border-left: 5px solid #3dbd99
+}
+
+#leftpanel p {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #262626;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+#leftpanel p:hover {
+    color: #060
+}
+
+.sz_email {
+    color: #999;
+    text-align: right;
+    font-size: 13px
+}
+
+#lablec {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #011a29;
+    min-width: 795px;
+    text-align: center;
+    font-size: 11px;
+    color: #fff
+}
+
+#lablec p {
+    margin-top: 15px
+}
+
+#lablec a {
+    text-decoration: none!important;
+    color: #fff
 }

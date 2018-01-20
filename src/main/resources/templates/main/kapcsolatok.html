@@ -8,7 +8,6 @@
 	<div layout:fragment="main">
 	
 		<div id="kapcsolatok">
-			<a href="/">Vissza</a>
 		
 			<h1 th:text="${hiba}"></h1>
 			<form th:action="@{/kapcsolatok}" method="post">
@@ -50,6 +49,8 @@
 				</li>
 			</ul>
 		</div>
+		
+		<p id="active" style="visibility:hidden">relationships</p>
 	</div>
 	
 </body>

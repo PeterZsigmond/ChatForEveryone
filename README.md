@@ -11,9 +11,9 @@ You will need:
  ---
  - Download
  - Run: `mvn clean install`
- - Now you only need two files: `application.properties` and `target/chatforeveryone-0.1.jar`. Put them in the same directory. You can delete the other files, if you want.
+ - Now you only need two files: `application.properties` and `target/chatforeveryone-1.0.jar`. Put them in the same directory. You can delete the other files, if you want.
  -  Now configure the `application.properties`. See below.
- - Run: `java -jar chatforeveryone-0.1.jar`
+ - Run: `java -jar chatforeveryone-1.0.jar`
 ### Configure application.properties
  - Before you first start the program, set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
 ---

@@ -3,18 +3,18 @@ var jelenlegiMsg = "";
 
 $(document).ready(function() {
 
-    updateFriendList();
+    //updateFriendList();
 
-    $(document.body).on('click', '.friendItem', function() {
+    $(document.body).on('mousedown', '.friendItem', function() {
         eppenBeszel[0] = $(this).find('.status').text();
         eppenBeszel[1] = $(this).find('.user').text();
         updateBeszelgetes();
         $(".top .info .name").html(eppenBeszel[1]);
     });
 
-    setInterval(function() {
+    /*setInterval(function() {
         updateFriendList();
-    }, 500);
+    }, 500);*/
     setInterval(function() {
         updateBeszelgetes();
     }, 500);
@@ -70,9 +70,10 @@ function updateBeszelgetes()
                             $('.messages').empty();
                             $.each(result.data,
                                    function(id, obj)
-                                   {
-                            	    	var msgs = $(".messages").append("<li class='i'><div class='head'><span class='time'>" + formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
-                                    									"</span></div><div class='message'>" + obj.message + "</div></li>");
+                                   {                        
+                            	    	var msgs = $(".messages").append("<li class='" + ((eppenBeszel[0] == obj.email) ? 'mess' : 'i') + "'><div class='head'><span class='time'>" +
+                            	    				 formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
+                            	    				 "</span></div><div class='message'>" + obj.message + "</div></li>");
                                     	$('.messages').append(msgs);
                                     	clearResizeScroll();
 
@@ -125,8 +126,13 @@ function updateFriendList() {
                     $('.list-friends').empty();
                     $.each(result.data,
                             function(id, user) {
-			                        	var app_friend = "<li class='friendItem'><div class='info'><div class='user'>" + user.name  + "</div><div class='status'>" + user.email + "</div</div></li>";
-			                            $('.list-friends').append(app_friend);
+			                        	var app_friend = "<li class='friendItem'>" +
+			                        					 	"<div class='info'>" +
+			                        					 		"<div class='user'>" + user.name  + "</div>" +
+			                        							"<div class='gombDate'>" + user.email + "</div>" +
+			                        						"</div>" +
+			                        					 "</li>";
+			                            $('#leftpanel ul').append(app_friend);
                             	
                             });
                 }
