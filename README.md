@@ -1,25 +1,23 @@
 ﻿# Welcome to ChatForEveryone!
 
-Hi! I'm Zsigmond Péter, and this is my first **Spring Boot** project. This is a little chat webapplication, with some REST webservice, written in JAVA.
+Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a chat web application, with REST web service.
 
-
-## Install
-You will need: 
-
+##Requirements
  - Java 8
  - Maven
- ---
- - Download
+ 
+## Install
  - Run: `mvn clean install`
  - Now you only need two files: `application.properties` and `target/chatforeveryone-1.0.jar`. Put them in the same directory. You can delete the other files, if you want.
- -  Now configure the `application.properties`. See below.
+ - Now configure the `application.properties`. See below.
  - Run: `java -jar chatforeveryone-1.0.jar`
-### Configure application.properties
- - Before you first start the program, set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
+ ---
+### Configuring `application.properties`
+ - Before you first start the program, create the database, then set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
 ---
  - `server.port=` The port that the server is running on. 
  ---
- - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME`
+ - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME?characterEncoding=utf8`
  - `spring.datasource.username/password=` MySQL username/password.
  ---
  - `email.enable.sending=` Set this to `true`, to send e-mails. (Only use `false` for testing.)
@@ -28,24 +26,17 @@ You will need:
  - `spring.mail.port: 25` The mail server's port.
  - `spring.mail.username/password:` The username/password for the email account.
 ---
-### TODO:
 
-- Kód rendezés.
-- JS kód rendezés.
-- CSS rendezés, és formázás.
-- **KÉSZ** - Back-end validálás.
-- **KÉSZ** - Div class státusz helyére az emailt, jobb oldalt meg a count helyére.
-- Rest api javítása: utolsó üzeneteket kérje csak le.
+## TODO:
+
+- Üzenetek szinkronizálása...
 - Email küdés másik szálon fusson.
-- **KÉSZ** - Message-nel ne emailt írjon, hanem hogy ki küldte és dátum.
-- **KÉSZ** - API-kat a /api/ -ra.
-- **KÉSZ** - Hiba oldal.
-- Mindennek változónak értelmes név, és programban csak angol.
+- Minden változónak értelmes név, és programban csak angol szavak legyenek.
 
 Later...
 - i18n
-- Profile pic a usereknek.
+- Profile picture a usereknek.
 
 
-### Thank you for reading.
+## Thank you for reading.
 

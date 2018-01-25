@@ -3,26 +3,27 @@ var jelenlegiMsg = "";
 
 $(document).ready(function() {
 
-    //updateFriendList();
+    updateFriendList();
 
     $(document.body).on('mousedown', '.friendItem', function() {
-        eppenBeszel[0] = $(this).find('.status').text();
-        eppenBeszel[1] = $(this).find('.user').text();
+        eppenBeszel[0] = $(this).find('.email').text();
+        eppenBeszel[1] = $(this).find('.name').text();
         updateBeszelgetes();
-        $(".top .info .name").html(eppenBeszel[1]);
+        setTextBox();        
+        $(".top .info .name").html(eppenBeszel[1] + "<br /><span class='email'>" + eppenBeszel[0] + "</span>");
     });
 
-    /*setInterval(function() {
+    setInterval(function() {
         updateFriendList();
-    }, 500);*/
+    }, 200);
     setInterval(function() {
         updateBeszelgetes();
-    }, 500);
+    }, 200);
 
     $(".list-friends").niceScroll(conf);
     $(".messages").niceScroll(lol);
-    $("#texxt").keypress(function(e) {
-        if (e.keyCode === 13) {
+    $(".ui .write-form textarea").keypress(function(e) {
+        if (e.keyCode === 13 && !e.shiftKey) {
 
             sendMessage();
 
@@ -37,16 +38,16 @@ $(document).ready(function() {
 
 function sendMessage() {
     if (eppenBeszel[0] != "") {
-        var uzenet = $.trim($("#texxt").val());
-        if (uzenet != "") {
+        var msg = $.trim($(".ui .write-form textarea").val());
+        var msg2 = msg.replace(/\n|\r/g, "<br />");
+        if (msg2 != "") {
             $.ajax({
                 type: "GET",
-                url: window.location + "/api/uzenet?kinek=" + eppenBeszel[0] +
-                    "&szoveg=" + uzenet,
+                url: window.location + "/api/uzenet?kinek=" + eppenBeszel[0] + "&szoveg=" + msg2,
                 success: updateBeszelgetes()
             });
         }
-        $("#texxt").val("");
+        $(".ui .write-form textarea").val("");
         updateBeszelgetes();
     }
 }
@@ -71,12 +72,10 @@ function updateBeszelgetes()
                             $.each(result.data,
                                    function(id, obj)
                                    {                        
-                            	    	var msgs = $(".messages").append("<li class='" + ((eppenBeszel[0] == obj.email) ? 'mess' : 'i') + "'><div class='head'><span class='time'>" +
-                            	    				 formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
-                            	    				 "</span></div><div class='message'>" + obj.message + "</div></li>");
-                                    	$('.messages').append(msgs);
+                            	    	$(".messages").append("<li class='" + ((eppenBeszel[0] == obj.email) ? 'mess' : 'i') + "'><div class='head'><span class='time'>" +
+                            	    				 		  formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
+                            	    				          "</span></div><div class='message'>" + obj.message + "</div></li>");
                                     	clearResizeScroll();
-
                                    });
                         }
                     }
@@ -123,17 +122,11 @@ function updateFriendList() {
             url: window.location + "/api/baratok",
             success: function(result) {
                 if (result.status == "Ok") {
-                    $('.list-friends').empty();
+                    $('#leftpanel ul').empty();
                     $.each(result.data,
-                            function(id, user) {
-			                        	var app_friend = "<li class='friendItem'>" +
-			                        					 	"<div class='info'>" +
-			                        					 		"<div class='user'>" + user.name  + "</div>" +
-			                        							"<div class='gombDate'>" + user.email + "</div>" +
-			                        						"</div>" +
-			                        					 "</li>";
-			                            $('#leftpanel ul').append(app_friend);
-                            	
+                            function(id, user)
+                            {	
+			                 	$('#leftpanel ul').append("<li class='friendItem'><a href='' onclick='return false;'><span class='name'>" + user.name  + "</span><div class='email'>" + user.email + "</div></a></li>");                            	
                             });
                 }
             }
@@ -159,3 +152,9 @@ clearResizeScroll = function() {
     $(".messages").getNiceScroll(0).resize();
     return $(".messages").getNiceScroll(0).doScrollTop(999999, 999);
 };
+
+function setTextBox()
+{
+	$(".write-form").css("visibility", "visible");
+	$(".write-form textarea").val('');
+}
