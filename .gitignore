@@ -5,7 +5,7 @@ target/
 mvnw.*
 .classpath.*
 
-### STS ###
+### STS ####
 .apt_generated
 .classpath
 .factorypath
