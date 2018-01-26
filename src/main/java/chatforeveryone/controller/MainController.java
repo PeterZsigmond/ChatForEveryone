@@ -17,8 +17,8 @@ import chatforeveryone.entity.User;
 import chatforeveryone.service.UserService;
 
 @Controller
-public class MainController {
-
+public class MainController
+{
 	@Autowired
 	private UserService userService;
 
@@ -29,51 +29,51 @@ public class MainController {
 	}
 
 	@GetMapping("/kapcsolatok")
-	public String kapcsolatok(Model model)
+	public String relationships(Model model)
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String user = auth.getName();
+		String authUser = auth.getName();
 
-		Set<User> requested = userService.findWhoUserSentButNotYetElfogadva(user);
+		Set<User> requested = userService.findWhoAuthUserSentButNotYetAccepted(authUser);
 		model.addAttribute("requested", requested);
 
-		Set<User> waitsForMe = userService.findWhoWaitsForMyElfogadva(user);
+		Set<User> waitsForMe = userService.findWhoWaitsForAuthUserAccept(authUser);
 		model.addAttribute("waitsForMe", waitsForMe);
 
-		model.addAttribute("hiba", "");
+		model.addAttribute("error", "");
 
-		return "main/kapcsolatok";
+		return "main/relationships";
 	}
 
 	@PostMapping("/kapcsolatok")
-	public String kapcsolatok(@ModelAttribute("email") String email, Model model)
+	public String relationships(@ModelAttribute("email") String email, Model model)
 	{
 		if(UserService.isValidEmail(email))
 		{
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			String user = auth.getName();
+			String authUser = auth.getName();
 
-			String result = userService.makeRelationship(user, email);
-			model.addAttribute("hiba", result);
+			String result = userService.makeRelationship(authUser, email);
+			model.addAttribute("error", result);
 
-			Set<User> requested = userService.findWhoUserSentButNotYetElfogadva(user);
+			Set<User> requested = userService.findWhoAuthUserSentButNotYetAccepted(authUser);
 			model.addAttribute("requested", requested);
 
-			Set<User> waitsForMe = userService.findWhoWaitsForMyElfogadva(user);
+			Set<User> waitsForMe = userService.findWhoWaitsForAuthUserAccept(authUser);
 			model.addAttribute("waitsForMe", waitsForMe);
 		}
 
-		return "main/kapcsolatok";
+		return "main/relationships";
 	}
 
-	@GetMapping("/registration")
+	@GetMapping("/regisztracio")
 	public String registration(Model model)
 	{
 		model.addAttribute("user", new User());
 		return "index/registration";
 	}
 
-	@PostMapping("/registration")
+	@PostMapping("/regisztracio")
 	public String registration(@ModelAttribute User user, Model model)
 	{
 		String registrationError = userService.registerUser(user);
@@ -91,21 +91,21 @@ public class MainController {
 		}
 	}
 
-	@RequestMapping("/successfulActivation")
-	public String activated(Model model)
+	@RequestMapping("/sikeresAktivalas")
+	public String successfulActivation(Model model)
 	{
 		model.addAttribute("msg", "Sikeres aktiválás!");
 		return "index/login";
 	}
 
-	@GetMapping("/activation/{code}")
+	@GetMapping("/aktivalas/{code}")
 	public String activation(@PathVariable("code") String code)
 	{
 		if (code != null && !code.isEmpty())
 		{
 			String result = userService.userActivationCode(code);
 			if (result.equals("ok"))
-				return "redirect:/successfulActivation";
+				return "redirect:/sikeresAktivalas";
 			else
 				return "redirect:/";
 		}

@@ -1,10 +1,11 @@
 package chatforeveryone.service;
 
-public class RESTResponse {
+public class RestResponse
+{
 	private String status;
 	private Object data;
 
-	public RESTResponse(String status, Object data) {
+	public RestResponse(String status, Object data) {
 		this.status = status;
 		this.data = data;
 	}

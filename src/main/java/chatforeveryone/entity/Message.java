@@ -9,16 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity(name = "messages")
-public class Message {
+public class Message
+{
 	@GeneratedValue
 	@Id
 	private Long id;
 
 	@OneToOne
-	private User kuldo;
+	private User sender;
 
 	@OneToOne
-	private User fogado;
+	private User receiver;
 
 	@Column(columnDefinition = "TEXT")
 	private String message;
@@ -36,20 +37,20 @@ public class Message {
 		this.id = id;
 	}
 
-	public User getKuldo() {
-		return kuldo;
+	public User getSender() {
+		return sender;
 	}
 
-	public void setKuldo(User kuldo) {
-		this.kuldo = kuldo;
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 
-	public User getFogado() {
-		return fogado;
+	public User getReceiver() {
+		return receiver;
 	}
 
-	public void setFogado(User fogado) {
-		this.fogado = fogado;
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
 	}
 
 	public String getMessage() {
@@ -67,11 +68,4 @@ public class Message {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	@Override
-	public String toString() {
-		return "Message [id=" + id + ", kuldo=" + kuldo + ", fogado=" + fogado + ", message=" + message + ", date="
-				+ date + "]";
-	}
-
 }

@@ -1,10 +1,12 @@
 package chatforeveryone.service;
 
-public class FriendResponse {
+public class FriendResponse
+{
 	private String email;
 	private String name;
 
-	public FriendResponse(String email, String name) {
+	public FriendResponse(String email, String name)
+	{
 		this.email = email;
 		this.name = name;
 	}
@@ -24,5 +26,4 @@ public class FriendResponse {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

@@ -29,7 +29,8 @@ public class EmailService
 		this.javaMailSender = javaMailSender;
 	}
 
-	public void sendMessage(String email, String nick, String generatedKey) {
+	public void sendMessage(String email, String name, String generatedKey)
+	{
 		SimpleMailMessage message = null;
 
 		try {
@@ -37,7 +38,7 @@ public class EmailService
 			message.setFrom(MESSAGE_FROM);
 			message.setTo(email);
 			message.setSubject("Sikeres regisztrálás");
-			message.setText("Kedves " + nick + "!\n\nKérlek akitváld a felhasználód a következő linken: " + emailServerFullAddress + "/activation/" + generatedKey + "\n\nÜdvözlettel: " + emailWelcomer);
+			message.setText("Kedves " + name + "!\n\nKérlek akitváld a felhasználód a következő linken: " + emailServerFullAddress + "/aktivalas/" + generatedKey + "\n\nÜdvözlettel: " + emailWelcomer);
 			javaMailSender.send(message);
 
 		} catch (Exception e) {

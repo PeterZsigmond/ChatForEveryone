@@ -16,7 +16,7 @@ import chatforeveryone.entity.Message;
 import chatforeveryone.service.FriendResponse;
 import chatforeveryone.service.MessageResponse;
 import chatforeveryone.service.MessageService;
-import chatforeveryone.service.RESTResponse;
+import chatforeveryone.service.RestResponse;
 import chatforeveryone.service.UserService;
 
 @RestController
@@ -28,55 +28,78 @@ public class MainRestController
 	@Autowired
 	private MessageService messageService;
 
-	@RequestMapping("/api/baratok")
-	public RESTResponse getBaratok()
+	@RequestMapping("/api/getFriends")
+	public RestResponse getFriends()
 	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String user = auth.getName();
-
-		List<FriendResponse> friends = userService.sendFriendsByEmail(user);
+		String authUser = auth.getName();
 		
-		return new RESTResponse("Ok", friends);
+		List<FriendResponse> friends = userService.findFriendsByEmail(authUser);
+		
+		return new RestResponse("Ok", friends);
 	}
-
-	@GetMapping("/api/beszelgetes")
-	public RESTResponse getBeszelgetes(@RequestParam(value = "vele") String email)
+	
+	@GetMapping("/api/getNumberOfMessages")
+	public RestResponse getNumberOfMessages(@RequestParam(value = "with") String email)
 	{
 		if(!UserService.isValidEmail(email))		
-			return new RESTResponse("Hibás e-mail!", null);		
+			return new RestResponse("Hibás e-mail!", null);
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String user = auth.getName();
+		String authUser = auth.getName();
+		
+		if(!userService.isThereRelationshipBetweenTwo(authUser, email))
+			return new RestResponse("Nem vagy vele kapcsolatban!", null);	
 	
-		List<Message> messages = messageService.getMessagesByEmails(user, email);
+		int numberOfMessages = messageService.getNumberOfMessagesByEmails(authUser, email);
+		
+		return new RestResponse("Ok", numberOfMessages);		
+	}
+
+	@GetMapping("/api/getMessages")
+	public RestResponse getMessages(@RequestParam(value = "with") String email)
+	{
+		if(!UserService.isValidEmail(email))		
+			return new RestResponse("Hibás e-mail!", null);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authUser = auth.getName();
+		
+		if(!userService.isThereRelationshipBetweenTwo(authUser, email))
+			return new RestResponse("Nem vagy vele kapcsolatban!", null);
+	
+		List<Message> messages = messageService.getMessagesByEmails(authUser, email);
 	
 		List<MessageResponse> response = new ArrayList<>();
 	
-		for (Message m : messages)
+		for(Message message : messages)
 		{
-			response.add(new MessageResponse(m.getKuldo().getEmail(), m.getKuldo().getNickName(), m.getDate(), m.getMessage()));
+			response.add(new MessageResponse(message.getSender().getEmail(), message.getSender().getName(), message.getMessage(), message.getDate()));
 		}
 	
-		return new RESTResponse("Ok", response);		
+		return new RestResponse("Ok", response);		
 	}
 
-	@GetMapping("/api/uzenet")
-	public RESTResponse getUzenet(@RequestParam(value = "kinek") String email, @RequestParam(value = "szoveg") String message)
+	@GetMapping("/api/newMessage")
+	public RestResponse newMessage(@RequestParam(value = "for") String email, @RequestParam(value = "message") String message)
 	{
 		if(!UserService.isValidEmail(email))
-			return new RESTResponse("Hibás e-mail!", null);
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String user = auth.getName();
-		
-		if(!userService.isThereRelationshipBetweenTwo(email, user))
-			return new RESTResponse("Nem vagy vele kapcsolatban!", null);
+			return new RestResponse("Hibás e-mail!", null);
 		
 		if(!MessageService.isValidMessage(message))
-			return new RESTResponse("Hibás üzenet!", null);
+			return new RestResponse("Hibás üzenet!", null);
 		
-		messageService.createNewMessage(user, email, message, new Date());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authUser = auth.getName();
+		
+		if(authUser.equals(email))
+			return new RestResponse("Magadnak nem küldhetsz üzenetet!", null);
+		
+		if(!userService.isThereRelationshipBetweenTwo(authUser, email))
+			return new RestResponse("Nem vagy vele kapcsolatban!", null);		
+		
+		messageService.createNewMessage(authUser, email, message, new Date());
 
-		return new RESTResponse("Ok", null);
+		return new RestResponse("Ok", null);
 	}
 }

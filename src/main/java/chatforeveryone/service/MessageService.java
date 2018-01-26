@@ -15,6 +15,11 @@ public class MessageService
 	@Autowired
 	private MessageRepository messageRepository;
 
+	public int getNumberOfMessagesByEmails(String email1, String email2)
+	{
+		return messageRepository.getNumberOfMessagesByEmails(email1, email2);
+	}
+	
 	public List<Message> getMessagesByEmails(String email1, String email2)
 	{
 		return messageRepository.getMessagesByEmails(email1, email2);

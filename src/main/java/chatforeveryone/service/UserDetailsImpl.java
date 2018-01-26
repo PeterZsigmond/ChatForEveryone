@@ -7,8 +7,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import chatforeveryone.entity.User;
 
-public class UserDetailsImpl implements UserDetails {
-
+public class UserDetailsImpl implements UserDetails
+{
 	private static final long serialVersionUID = 3185970362329652822L;
 
 	private User user;

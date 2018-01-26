@@ -24,16 +24,5 @@ Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a
  - `spring.mail.port: 25` The mail server's port.
  - `spring.mail.username/password:` The username/password for the email account.
 
-## TODO:
-
-- Üzenetek szinkronizálása...
-- Email küdés másik szálon fusson, és email formázása.
-- Minden változónak értelmes név, és programban csak angol szavak legyenek.
-
-Later...
-- i18n
-- Profile picture a usereknek.
-
-
 ## Thank you for reading.
 

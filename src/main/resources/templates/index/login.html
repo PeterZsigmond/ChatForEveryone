@@ -14,14 +14,14 @@
 	  <h1 th:if="${param.logout}">Sikeresen kijelentkeztél!</h1>	  
       
       <ul class="tab-group">
-		<li class="tab active"><a href="login">Bejelentkezés</a></li>
-        <li class="tab"><a href="registration">Regisztráció</a></li>        
+		<li class="tab active"><a href="bejelentkezes">Bejelentkezés</a></li>
+        <li class="tab"><a href="regisztracio">Regisztráció</a></li>        
       </ul>
 		    
         <div id="login">   
           <h1>Üdv a ChatForEveryone-on!</h1>
           
-          <form th:action="@{/login}" method="post">
+          <form th:action="@{/bejelentkezes}" method="post">
           
             <div class="field-wrap">
             <label>

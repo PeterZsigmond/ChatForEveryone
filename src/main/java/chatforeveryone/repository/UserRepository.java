@@ -7,29 +7,29 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import chatforeveryone.entity.User;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-
+public interface UserRepository extends CrudRepository<User, Long>
+{
 	User findByEmail(String email);
 	
-	User findByNickName(String nick);
+	User findByName(String name);
 
 	User findByActivationCode(String code);
 	
 	@Query(value = "select * from users where id = ANY (" + 
-			"select fogado_id from relationships where elfogadva=1 and kuldo_id = (select id from users where email = ?1) union "
-			+ "select kuldo_id from relationships where elfogadva=1 and fogado_id = (select id from users where email = ?1))", nativeQuery = true)
-	Set<User> findRelationshipsByEmail(String mail);
+			"select receiver_id from relationships where accepted=1 and sender_id = (select id from users where email = ?1) union "
+			+ "select sender_id from relationships where accepted=1 and receiver_id = (select id from users where email = ?1))", nativeQuery = true)
+	Set<User> findRelationshipsByEmail(String email);
 	
-	@Query(value = "select * from users where id = any (\n" + 
-			"select fogado_id from relationships where kuldo_id=(select id from users where email=?1) and elfogadva=0)", nativeQuery = true)
-	Set<User> findWhoUserSentButNotYetElfogadva(String email);
+	@Query(value = "select * from users where id = any (" + 
+			"select receiver_id from relationships where sender_id=(select id from users where email=?1) and accepted=0)", nativeQuery = true)
+	Set<User> findWhoAuthUserSentButNotYetAccepted(String email);
 	
-	@Query(value="select * from users where id = any (\n" + 
-			"select kuldo_id from relationships where fogado_id=(select id from users where email=?1) and elfogadva=0)", nativeQuery = true)
-	Set<User> findWhoWaitsForMyElfogadva(String email);
+	@Query(value="select * from users where id = any (" + 
+			"select sender_id from relationships where receiver_id=(select id from users where email=?1) and accepted=0)", nativeQuery = true)
+	Set<User> findWhoWaitsForAuthUserAccept(String email);
 	
-	@Query(value="select * from users where id = any(\n" + 
-			"select kuldo_id from relationships where fogado_id = (select id from users where email=?1) and elfogadva=1 union "
-			+ "select fogado_id from relationships where kuldo_id = (select id from users where email=?1) and elfogadva=1)", nativeQuery = true)
-	List<User> findFriendsByEmail(String mail);
+	@Query(value="select * from users where id = any(" + 
+			"select sender_id from relationships where receiver_id = (select id from users where email=?1) and accepted=1 union "
+			+ "select receiver_id from relationships where sender_id = (select id from users where email=?1) and accepted=1)", nativeQuery = true)
+	List<User> findFriendsByEmail(String email);
 }

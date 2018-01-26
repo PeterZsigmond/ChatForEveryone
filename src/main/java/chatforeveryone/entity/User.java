@@ -17,7 +17,7 @@ public class User {
 	private String email;
 
 	@Column(unique = true, nullable = false)
-	private String nickName;
+	private String name;
 
 	@OneToOne
 	private Role role;
@@ -27,9 +27,14 @@ public class User {
 
 	private String activationCode;
 
-	public User() {
-	}
+	public User() {}
 
+	public User(String email, String name)
+	{
+		this.email = email;
+		this.name = name;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -46,12 +51,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getName() {
+		return name;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Role getRole() {
@@ -69,17 +74,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getActivationCode() {
 		return activationCode;
 	}
 
 	public void setActivationCode(String activationCode) {
 		this.activationCode = activationCode;
-	}
-
-	@Override
-	public String toString() {
-		return "User [email=" + email + "]";
 	}
 }

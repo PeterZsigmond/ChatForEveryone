@@ -7,19 +7,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity(name = "relationships")
-public class Relationship {
+public class Relationship
+{
 	@GeneratedValue
 	@Id
 	private Long id;
 
 	@OneToOne
-	private User kuldo;
+	private User sender;
 
 	@OneToOne
-	private User fogado;
+	private User receiver;
 
 	@Column(columnDefinition = "tinyint(1) default 0")
-	private boolean elfogadva;
+	private boolean accepted;
 
 	private Relationship() {}
 
@@ -31,33 +32,28 @@ public class Relationship {
 		this.id = id;
 	}
 
-	public User getKuldo() {
-		return kuldo;
+	public User getSender() {
+		return sender;
 	}
 
-	public void setKuldo(User kuldo) {
-		this.kuldo = kuldo;
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 
-	public User getFogado() {
-		return fogado;
+	public User getReceiver() {
+		return receiver;
 	}
 
-	public void setFogado(User fogado) {
-		this.fogado = fogado;
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
 	}
 
-	public boolean isElfogadva() {
-		return elfogadva;
+	public boolean isAccepted() {
+		return accepted;
 	}
 
-	public void setElfogadva(boolean elfogadva) {
-		this.elfogadva = elfogadva;
-	}
-
-	@Override
-	public String toString() {
-		return "Relationship [id=" + id + ", kuldo=" + kuldo + ", fogado=" + fogado + ", elfogadva=" + elfogadva + "]";
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
 	}
 
 }

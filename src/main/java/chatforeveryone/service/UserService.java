@@ -21,7 +21,8 @@ import chatforeveryone.repository.RoleRepository;
 import chatforeveryone.repository.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService
+{
 
 	@Value("${email.enable.sending}")
 	private boolean emailEnableSending;	
@@ -42,7 +43,8 @@ public class UserService implements UserDetailsService {
 	private String USER_ROLE;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+	{
 		User user = findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
@@ -55,7 +57,7 @@ public class UserService implements UserDetailsService {
 	{
 		String email, name, password;
 		email = userToRegister.getEmail();
-		name = userToRegister.getNickName();
+		name = userToRegister.getName();
 		password = userToRegister.getPassword();
 		
 		if(!isValidEmail(email))
@@ -64,7 +66,7 @@ public class UserService implements UserDetailsService {
 		}
 		
 		User userCheckEmail = userRepository.findByEmail(userToRegister.getEmail());
-		User userCheckNickName = userRepository.findByNickName(userToRegister.getNickName());
+		User userCheckNickName = userRepository.findByName(userToRegister.getName());
 		
 		if(userCheckEmail != null)
 		{
@@ -126,74 +128,68 @@ public class UserService implements UserDetailsService {
 	{
 		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(email1, email2);
 		
-		return (rship != null && rship.isElfogadva());
+		return (rship != null && rship.isAccepted());
 	}
 
-	public List<FriendResponse> sendFriendsByEmail(String email)
+	public List<FriendResponse> findFriendsByEmail(String email)
 	{
-		
 		List<User> friends = userRepository.findFriendsByEmail(email);
 		List<FriendResponse> friendResponse = new ArrayList<>();
 		
 		for(User friend : friends)
 		{
-			friendResponse.add(new FriendResponse(friend.getEmail(), friend.getNickName()));
+			friendResponse.add(new FriendResponse(friend.getEmail(), friend.getName()));
 		}
 		
 		return friendResponse;
 	}
 
-	public Set<User> findWhoUserSentButNotYetElfogadva(String email)
+	public Set<User> findWhoAuthUserSentButNotYetAccepted(String email)
 	{
-		return userRepository.findWhoUserSentButNotYetElfogadva(email);
+		return userRepository.findWhoAuthUserSentButNotYetAccepted(email);
 	}
 
-	public Set<User> findWhoWaitsForMyElfogadva(String email)
+	public Set<User> findWhoWaitsForAuthUserAccept(String email)
 	{
-		return userRepository.findWhoWaitsForMyElfogadva(email);
+		return userRepository.findWhoWaitsForAuthUserAccept(email);
 	}
 
-	public String makeRelationship(String _kuldo, String _fogado)
+	public String makeRelationship(String email1, String email2)
 	{
-		User kuldo_, fogado_;
+		User sender = userRepository.findByEmail(email1);
+		User receiver = userRepository.findByEmail(email2);
 
-		kuldo_ = userRepository.findByEmail(_kuldo);
-		fogado_ = userRepository.findByEmail(_fogado);
-
-		if (fogado_ == null)
+		if (receiver == null)
 			return "Ilyen user nem létezik!";
 
-		String kuldo = kuldo_.getEmail();
-		String fogado = fogado_.getEmail();
-
-		if (kuldo.equals(fogado))
+		if (sender.getEmail().equals(receiver.getEmail()))
 			return "Saját magadat nem veheted fel!";
 
-		Relationship rship = relationshipRepository.checkForRelationshipBetweenTwo(kuldo, fogado);
+		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(sender.getEmail(), receiver.getEmail());
 
 		if (rship != null)
 		{
-			if (kuldo.equals(rship.getFogado().getEmail()))
-				updateRelationshipToElfogadva(kuldo, fogado);
+			if(sender.getEmail().equals(rship.getReceiver().getEmail()))
+				updateRelationshipToAccepted(sender.getEmail(), receiver.getEmail());
 			else
 				return "Már küldtél neki!";
 		}
 		else
-			createNewRelationship(kuldo, fogado);
+			createNewRelationship(sender.getEmail(), receiver.getEmail());
 
 		return "";
 	}
 
-	public void updateRelationshipToElfogadva(String a, String b)
+	public void updateRelationshipToAccepted(String email1, String email2)
 	{
-		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(a, b);
-		rship.setElfogadva(true);
+		Relationship rship = relationshipRepository.findRelationshipBetweenTwoUser(email1, email2);
+		rship.setAccepted(true);
 		relationshipRepository.save(rship);
 	}
 
-	public void createNewRelationship(String ki, String kit)
+	public void createNewRelationship(String email1, String email2)
 	{
-		relationshipRepository.createNewRelationship(ki, kit);
+		relationshipRepository.createNewRelationship(email1, email2);
 	}
 
 	public Set<User> findRelationshipsByEmail(String email)
@@ -218,7 +214,8 @@ public class UserService implements UserDetailsService {
 		return new String(word);
 	}
 
-	public String userActivationCode(String code) {
+	public String userActivationCode(String code)
+	{
 		User user = userRepository.findByActivationCode(code);
 		if (user == null)
 			return "";

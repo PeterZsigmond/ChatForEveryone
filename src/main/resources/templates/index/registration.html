@@ -12,14 +12,14 @@
       <h1 th:text="${msg}"></h1>
       
       <ul class="tab-group">
-		<li class="tab"><a href="login">Bejelentkezés</a></li>
-        <li class="tab active"><a href="registration">Regisztráció</a></li>        
+		<li class="tab"><a href="bejelentkezes">Bejelentkezés</a></li>
+        <li class="tab active"><a href="regisztracio">Regisztráció</a></li>        
       </ul>
 		
 		<div id="signup">   
           <h1>Kérlek add meg az adataidat!</h1>
           
-          <form th:action="@{/registration}" th:object="${user}" method="POST">
+          <form th:action="@{/regisztracio}" th:object="${user}" method="POST">
           
           
             <div class="field-wrap">
@@ -33,7 +33,7 @@
               <label>
                 Felhasználónév<span class="req">*</span>
               </label>
-              <input type="text" th:field="*{nickName}" required="true" autocomplete="off" />
+              <input type="text" th:field="*{name}" required="true" autocomplete="off" />
             </div>          
 
           <div class="field-wrap">

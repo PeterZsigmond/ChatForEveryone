@@ -36,18 +36,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/registration").permitAll()
-			.antMatchers("/successfulActivation").permitAll()
-			.antMatchers("/activation/**").permitAll()
+			.antMatchers("/regisztracio").permitAll()
+			.antMatchers("/sikeresAktivalas").permitAll()
+			.antMatchers("/aktivalas/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
-			.loginPage("/login")
+			.loginPage("/bejelentkezes")
 			.permitAll()
 			.and()
 		.logout()
-			.logoutSuccessUrl("/login?logout")
+			.logoutSuccessUrl("/bejelentkezes?logout")
 			.permitAll();		
 	}
 }

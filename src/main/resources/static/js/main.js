@@ -1,5 +1,6 @@
 var eppenBeszel = new Array("", "");
 var jelenlegiMsg = "";
+var numberOfMessages = -1;
 
 $(document).ready(function() {
 
@@ -8,16 +9,17 @@ $(document).ready(function() {
     $(document.body).on('mousedown', '.friendItem', function() {
         eppenBeszel[0] = $(this).find('.email').text();
         eppenBeszel[1] = $(this).find('.name').text();
-        updateBeszelgetes();
+        numberOfMessages = -1;
+        checkForNewMessages();
         setTextBox();        
         $(".top .info .name").html(eppenBeszel[1] + "<br /><span class='email'>" + eppenBeszel[0] + "</span>");
     });
 
     setInterval(function() {
         updateFriendList();
-    }, 200);
+    }, 1000);
     setInterval(function() {
-        updateBeszelgetes();
+    	checkForNewMessages();
     }, 200);
 
     $(".list-friends").niceScroll(conf);
@@ -43,37 +45,56 @@ function sendMessage() {
         if (msg2 != "") {
             $.ajax({
                 type: "GET",
-                url: window.location + "/api/uzenet?kinek=" + eppenBeszel[0] + "&szoveg=" + msg2,
-                success: updateBeszelgetes()
+                url: window.location + "/api/newMessage?for=" + eppenBeszel[0] + "&message=" + msg2
             });
         }
         $(".ui .write-form textarea").val("");
-        updateBeszelgetes();
     }
 }
 
-function updateBeszelgetes()
+function checkForNewMessages()
 {
-    if (eppenBeszel[0] != "")
+	if (eppenBeszel[0] != "")
     {
         $.ajax({type: "GET",
-                url: window.location + "/api/beszelgetes?vele=" + eppenBeszel[0],
+                url: window.location + "/api/getNumberOfMessages?with=" + eppenBeszel[0],
                 success: function(result)
                 {
                     if (result.status == "Ok")
                     {
-                        res = JSON.stringify(result.data);
+                       if(result.data > numberOfMessages)
+                       {
+                    	   numberOfMessages = result.data;
+                    	   updateMessages();
+                       }
+                    }
+                }
+            });
+    }
+}
 
-                        if (jelenlegiMsg != res)
+function updateMessages()
+{
+    if (eppenBeszel[0] != "")
+    {
+        $.ajax({type: "GET",
+                url: window.location + "/api/getMessages?with=" + eppenBeszel[0],
+                success: function(result)
+                {
+                    if (result.status == "Ok")
+                    {
+                        var res = JSON.stringify(result.data);
+
+                        if(jelenlegiMsg != res)
                         {
                             jelenlegiMsg = res;
 
                             $('.messages').empty();
                             $.each(result.data,
                                    function(id, obj)
-                                   {                        
-                            	    	$(".messages").append("<li class='" + ((eppenBeszel[0] == obj.email) ? 'mess' : 'i') + "'><div class='head'><span class='time'>" +
-                            	    				 		  formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.name +
+                                   {               
+                            	    	$(".messages").append("<li class='" + ((eppenBeszel[0] == obj.senderEmail) ? 'mess' : 'i') + "'><div class='head'><span class='time'>" +
+                            	    				 		  formatDateToMessages(obj.date) + "</span><span class='name'>" + obj.senderName +
                             	    				          "</span></div><div class='message'>" + obj.message + "</div></li>");
                                     	clearResizeScroll();
                                    });
@@ -119,7 +140,7 @@ function updateFriendList() {
     $
         .ajax({
             type: "GET",
-            url: window.location + "/api/baratok",
+            url: window.location + "/api/getFriends",
             success: function(result) {
                 if (result.status == "Ok") {
                     $('#leftpanel ul').empty();
