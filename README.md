@@ -3,17 +3,18 @@
 Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a chat web application, with REST web service.
 
 ## Requirements
- - Java 8
+ - Java Development Kit 8
  - Maven
  
 ## Install
+ - Configure `application.properties`. See below.
+ - Create database `chatforeveryone` (or as you named it in the properties file).
  - Run: `mvn clean install`
  - Now you only need two files: `application.properties` and `target/chatforeveryone-1.0.jar`. Put them in the same directory. You can delete the other files, if you want.
- - Now configure the `application.properties`. See below.
  - Run: `java -jar chatforeveryone-1.0.jar`
- ---
+ 
 ### Configuring `application.properties`
- - Before you first start the program, create the database, then set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
+ - At first start set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
  - `server.port=` The port that the server is running on.
  - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME?characterEncoding=utf8`
  - `spring.datasource.username/password=` MySQL username/password.
@@ -26,7 +27,7 @@ Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a
 ## TODO:
 
 - Üzenetek szinkronizálása...
-- Email küdés másik szálon fusson.
+- Email küdés másik szálon fusson, és email formázása.
 - Minden változónak értelmes név, és programban csak angol szavak legyenek.
 
 Later...
