@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +43,8 @@ public class UserService implements UserDetailsService
 
 	@Value("${role.default}")
 	private String USER_ROLE;
+	
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -80,7 +84,7 @@ public class UserService implements UserDetailsService
 		{
 			return "Az felhasználónév már foglalt!";
 		}
-		else if(password == null || password.equals("") || password.length() < 3 || password.length() > 100)
+		else if(password == null || password.equals("") || password.length() < 5 || password.length() > 100)
 		{
 			return "Nem megfelelő jelszó!";
 		}
@@ -107,10 +111,11 @@ public class UserService implements UserDetailsService
 			return "";
 		}
 	}	
-
+	
 	public static boolean isValidEmail(String email)
 	{
-		return (email != null && !email.equals("") && email.length() >= 5 && email.length() <= 100 && email.contains("@") && email.contains("."));			
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();			
 	}
 	
 	public User findByEmail(String email)
@@ -204,14 +209,13 @@ public class UserService implements UserDetailsService
 
 	public String generateKey()
 	{
-		Random random = new Random();
-		char[] word = new char[50];
-		for (int i = 0; i < word.length; i++)
-		{
-			word[i] = (char) ('a' + random.nextInt(26));
-		}
+		char[] key = new char[50];
+        for (int i = 0; i < key.length; i++)
+        {
+            key[i] = (char) ('a' + new Random().nextInt(26));
+        }
 
-		return new String(word);
+		return new String(key);
 	}
 
 	public String userActivationCode(String code)

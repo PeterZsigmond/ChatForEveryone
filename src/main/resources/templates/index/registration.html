@@ -26,7 +26,14 @@
               <label>
                 E-mail cím<span class="req">*</span>
               </label>
-              <input type="email" th:field="*{email}" required="true" autocomplete="off" autofocus="true"/>
+              <input type="email" id="email" th:field="*{email}" required="true" autocomplete="off" autofocus="true"/>
+            </div>
+            
+            <div class="field-wrap">
+              <label>
+                E-mail cím megerősítése<span class="req">*</span>
+              </label>
+              <input type="email" id="confirm_email" required="true" autocomplete="off" />
             </div>
         
             <div class="field-wrap">
@@ -40,7 +47,14 @@
             <label>
               Jelszó<span class="req">*</span>
             </label>
-            <input type="password" th:field="*{password}" required="true" autocomplete="off" />
+            <input type="password" id="password" th:field="*{password}" required="true" autocomplete="off" />
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Jelszó megerősítése<span class="req">*</span>
+            </label>
+            <input type="password" id="confirm_password" required="true" autocomplete="off" />
           </div>
           
           <button type="submit" class="button button-block">Regisztráció</button>
