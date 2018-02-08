@@ -1,1 +1,453 @@
-@charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400);@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css) ;*,body,html{margin:0;padding:0}.ui,.ui .chat .info{-webkit-box-direction:normal}#fejlec ul,#leftpanel ul,.ui .messages{list-style:none}.ui .messages li:after,.ui .write-form textarea:before{content:'';clear:both}#fejlec ul,.ui,body{overflow:hidden}#fejlec,#lablec{min-width:795px}*{box-sizing:border-box;outline:0}body{font-family:'Open Sans',sans-serif;background-color:#F7F7F7}body,html{height:100%}#kapcsolatok{margin: auto;margin-top:30px;padding: 10px;width: 50%;float: center;min-width: 650px;border: 1px solid black;}#kapcsolatok table{border-collapse:collapse}#kapcsolatok table,td,th{border:1px solid #000}#frag{padding-top:50px}.ui{margin:10px auto;width:745px;height:700px;background-color:#fff;border-radius:3px;box-shadow:0 0 25px #3a9fc4;-webkit-box-orient:horizontal;-ms-flex-direction:row;flex-direction:row;display:-webkit-box;display:-ms-flexbox;display:flex}.ui .chat{width:70%;height:100%;background:#f1f5f8}.ui .chat .info{display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-box-orient:vertical;-ms-flex-direction:column;flex-direction:column;vertical-align:40px;width:calc(100% - 65px - 50px)}.ui .chat .info .name{font-weight:600;color:#434753;height:50%;margin:15px 0 0 10px}.ui .list-friends{list-style:none;font-size:13px;height:88%}.ui .list-friends li{background:#fff;border:2px solid #242424;border-radius:25px;padding:5px}.ui .list-friends li:first-child{margin-top:10px}.ui .list-friends>li{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 0 10px 10px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.ui .list-friends .info{-webkit-box-flex:1;-ms-flex:1;flex:1}.ui .list-friends .off:after,.ui .list-friends .on:after{content:'';left:-12px;top:8px;position:absolute;height:7px;width:7px;border-radius:50%}.ui .list-friends .off:after{background:#fd8064}.ui .list-friends .on:after{background:#62bf6e}.ui .top{height:70px}.ui .messages{height:calc(100% - 70px - 150px);border:1px solid grey;border-left:none;border-right:none}.ui .messages li{margin:10px;-webkit-transition:all .5s;transition:all .5s}.ui .messages li:after{display:block}.ui .messages li .head{font-size:13px}.ui .messages li .name{font-weight:600;position:relative}.ui .messages li .name:after{content:'';position:absolute;height:8px;width:8px;border-radius:50%;top:6px}.ui .messages li .time{color:#b7bccf;margin-right:5px}.ui .messages li .message{margin-top:20px;color:#fff;font-size:14px;border-radius:3px;padding:15px;line-height:15px;max-width:500px;word-wrap:break-word;position:relative}.ui .messages li .message:before{content:'';position:absolute;width:0;height:0;top:-12px;border-bottom:12px solid #62bf6e;border-left:10px solid transparent;border-right:10px solid transparent}.ui .messages li.mess .name{margin-left:20px}.ui .messages li.mess .name:after{background-color:#62bf6e;left:-20px;top:6px}.ui .messages li.mess .message{background-color:#62bf6e;float:left}.ui .messages li.mess .message:before{left:16px;border-bottom-color:#62bf6e}.ui .messages li.i .head{text-align:right}.ui .messages li.i .name{margin-right:20px}.ui .messages li.i .name:after{background-color:#7bc4ef;right:-20px;top:6px}.ui .messages li.i .message{background-color:#7bc4ef;float:right}.ui .messages li.i .message:before{right:16px;border-bottom-color:#7bc4ef}.ui .write-form{height:150px;visibility:hidden}.ui .write-form textarea{height:80px;margin:17px 5%;width:90%;outline:0;padding:15px;border:1px solid grey;border-radius:3px;resize:none}.ui .send{color:#7ac5ef;text-transform:uppercase;font-weight:700;float:right;margin-right:5%;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.ui i.fa-file-o{margin-left:15px}.ui i.fa-picture-o{margin-left:5%}#fejlec{width:100%;height:50px;position:fixed;background-color:#023A5B;box-shadow:0 1px 1px 0 rgba(0,0,0,.52);z-index:5001;overflow:visible}#fejlec .fejleclogo{margin-top:1px;float:left}#fejlec .fejleclng{float:right;margin-right:10px}#fejlec li,#leftpanel{float:left}#fejlec li a{text-decoration:none;color:#fff;display:block;text-align:center;padding:15px 10px}#fejlec li:first-child{margin-left:10px}#fejlec a:hover{background-color: #034a74;}#fejlec li a:hover:not (.aktiv ){background-color: #034a74;}#fejlec .aktiv {background-color: #034a74;}#leftpanel{margin:0 auto;padding:0 1% 0 0;width:29%;box-sizing:content-box;height:100%;background:#434753}#leftpanel p{color:#fff;margin:15px 0 0 10px}#leftpanel ul{width:100%;margin:0 auto;background-color:#fff}#leftpanel li{border-left:3px solid grey;border-top:1px solid grey;border-right:1px solid grey;padding:0 0 5% 2%;height:55px;background-color:#fff}#leftpanel li:last-child{border-bottom:1px solid grey}#leftpanel li:hover{background-color:#f6f6f6;border-left:5px solid grey}#leftpanel a,#leftpanel a:visited{display:inline-block;margin:0;padding:0;width:100%;color:#262626;overflow:hidden;white-space:nowrap;text-decoration:none}#leftpanel a:hover{color:#000}.email{color:#999;text-align:right;font-size:13px;padding:8% 0 0}#lablec{width:100%;height:40px;position:absolute;bottom:0;left:0;background-color:#011a29;text-align:center;font-size:11px;color:#fff}#lablec p{margin-top:15px}#lablec a{text-decoration:none!important;color:#fff}
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+*,
+body,
+html {
+    margin: 0;
+    padding: 0
+}
+
+html {
+    height: 100%
+}
+
+.ui,
+.ui .chat .info {
+    -webkit-box-direction: normal
+}
+
+#fejlec ul,
+#leftpanel ul,
+.ui .messages {
+    list-style: none
+}
+
+.ui .messages li:after,
+.ui .write-form textarea:before {
+    content: '';
+    clear: both
+}
+
+#fejlec ul,
+.ui,
+body {
+    overflow: hidden
+}
+
+#fejlec,
+#lablec {
+    min-width: 795px
+}
+
+* {
+    box-sizing: border-box;
+    outline: 0
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #F7F7F7
+}
+
+body,
+html {
+    height: 100%
+}
+
+#kapcsolatok {
+    margin: auto;
+    margin-top: 30px;
+    padding: 10px;
+    width: 50%;
+    float: center;
+    min-width: 650px;
+    border: 1px solid black;
+}
+
+#kapcsolatok table {
+    border-collapse: collapse
+}
+
+#kapcsolatok table,
+td,
+th {
+    border: 1px solid #000
+}
+
+#frag {
+    padding-top: 50px
+}
+
+.ui {
+    margin: 10px auto;
+    width: 745px;
+    height: 700px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 25px #3a9fc4;
+    -webkit-box-orient: horizontal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.ui .chat {
+    width: 70%;
+    height: 100%;
+    background: #f1f5f8
+}
+
+.ui .chat .info {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    vertical-align: 40px;
+    width: calc(100% - 65px - 50px)
+}
+
+.ui .chat .info .name {
+    font-weight: 600;
+    color: #434753;
+    height: 50%;
+    margin: 15px 0 0 10px
+}
+
+.ui .list-friends {
+    list-style: none;
+    font-size: 13px;
+    height: 88%
+}
+
+.ui .list-friends li {
+    background: #fff;
+    border: 2px solid #242424;
+    border-radius: 25px;
+    padding: 5px
+}
+
+.ui .list-friends li:first-child {
+    margin-top: 10px
+}
+
+.ui .list-friends>li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 0 10px 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.ui .list-friends .info {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1
+}
+
+.ui .list-friends .off:after,
+.ui .list-friends .on:after {
+    content: '';
+    left: -12px;
+    top: 8px;
+    position: absolute;
+    height: 7px;
+    width: 7px;
+    border-radius: 50%
+}
+
+.ui .list-friends .off:after {
+    background: #fd8064
+}
+
+.ui .list-friends .on:after {
+    background: #62bf6e
+}
+
+.ui .top {
+    height: 70px
+}
+
+.ui .messages {
+    height: calc(100% - 70px - 150px);
+    border: 1px solid grey;
+    border-left: none;
+    border-right: none
+}
+
+.ui .messages li {
+    margin: 10px;
+    -webkit-transition: all .5s;
+    transition: all .5s
+}
+
+.ui .messages li:after {
+    display: block
+}
+
+.ui .messages li .head {
+    font-size: 13px
+}
+
+.ui .messages li .name {
+    font-weight: 600;
+    position: relative
+}
+
+.ui .messages li .name:after {
+    content: '';
+    position: absolute;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    top: 6px
+}
+
+.ui .messages li .time {
+    color: #b7bccf;
+    margin-right: 5px
+}
+
+.ui .messages li .message {
+    margin-top: 20px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    padding: 15px;
+    line-height: 15px;
+    max-width: 500px;
+    word-wrap: break-word;
+    position: relative
+}
+
+.ui .messages li .message:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -12px;
+    border-bottom: 12px solid #62bf6e;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent
+}
+
+.ui .messages li.mess .name {
+    margin-left: 20px
+}
+
+.ui .messages li.mess .name:after {
+    background-color: #62bf6e;
+    left: -20px;
+    top: 6px
+}
+
+.ui .messages li.mess .message {
+    background-color: #62bf6e;
+    float: left
+}
+
+.ui .messages li.mess .message:before {
+    left: 16px;
+    border-bottom-color: #62bf6e
+}
+
+.ui .messages li.i .head {
+    text-align: right
+}
+
+.ui .messages li.i .name {
+    margin-right: 20px
+}
+
+.ui .messages li.i .name:after {
+    background-color: #7bc4ef;
+    right: -20px;
+    top: 6px
+}
+
+.ui .messages li.i .message {
+    background-color: #7bc4ef;
+    float: right
+}
+
+.ui .messages li.i .message:before {
+    right: 16px;
+    border-bottom-color: #7bc4ef
+}
+
+.ui .write-form {
+    height: 150px;
+    visibility: hidden
+}
+
+.ui .write-form textarea {
+    height: 80px;
+    margin: 17px 5%;
+    width: 90%;
+    outline: 0;
+    padding: 15px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    resize: none
+}
+
+.ui .send {
+    color: #7ac5ef;
+    text-transform: uppercase;
+    font-weight: 700;
+    float: right;
+    margin-right: 5%;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.ui i.fa-file-o {
+    margin-left: 15px
+}
+
+.ui i.fa-picture-o {
+    margin-left: 5%
+}
+
+#fejlec {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    background-color: #023A5B;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .52);
+    z-index: 5001;
+    overflow: visible
+}
+
+#fejlec .fejleclogo {
+    margin-top: 1px;
+    float: left
+}
+
+#fejlec .fejleclng {
+    float: right;
+    margin-right: 10px
+}
+
+#fejlec li,
+#leftpanel {
+    float: left
+}
+
+#fejlec li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    text-align: center;
+    padding: 15px 10px
+}
+
+#fejlec li:first-child {
+    margin-left: 10px
+}
+
+#fejlec a:hover {
+    background-color: #034a74;
+}
+
+#fejlec li a:hover:not (.aktiv) {
+    background-color: #034a74;
+}
+
+#fejlec .aktiv {
+    background-color: #034a74;
+}
+
+#leftpanel {
+    margin: 0 auto;
+    padding: 0 1% 0 0;
+    width: 29%;
+    box-sizing: content-box;
+    height: 100%;
+    background: #434753
+}
+
+#leftpanel p {
+    color: #fff;
+    margin: 15px 0 0 10px
+}
+
+#leftpanel ul {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff
+}
+
+#leftpanel li {
+    border-left: 3px solid grey;
+    border-top: 1px solid grey;
+    border-right: 1px solid grey;
+    padding: 0 0 5% 2%;
+    height: 55px;
+    background-color: #fff
+}
+
+#leftpanel li:last-child {
+    border-bottom: 1px solid grey
+}
+
+#leftpanel li:hover {
+    background-color: #f6f6f6;
+    border-left: 5px solid grey
+}
+
+#leftpanel a,
+#leftpanel a:visited {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #262626;
+    overflow: hidden;
+    white-space: nowrap;
+    text-decoration: none
+}
+
+#leftpanel a:hover {
+    color: #000
+}
+
+.email {
+    color: #999;
+    text-align: right;
+    font-size: 13px;
+    padding: 8% 0 0
+}
+
+#lablec {
+    height: 40px;
+    background-color: #011a29;
+    font-size: 11px;
+	position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+#lablec p
+{
+	margin-top: 15px;
+}
+
+#lablec a {
+    text-decoration: none!important;
+    color: white
+}
