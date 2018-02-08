@@ -2,7 +2,9 @@ package chatforeveryone.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import chatforeveryone.entity.Message;
+import chatforeveryone.entity.User;
 import chatforeveryone.service.FriendResponse;
 import chatforeveryone.service.MessageResponse;
 import chatforeveryone.service.MessageService;
@@ -101,5 +104,39 @@ public class MainRestController
 		messageService.createNewMessage(authUser, email, message, new Date());
 
 		return new RestResponse("Ok", null);
+	}
+	
+	@GetMapping("/api/findWhoAuthUserSentButNotYetAccepted")
+	public RestResponse findWhoAuthUserSentButNotYetAccepted()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authUser = auth.getName();	
+	
+		Set<User> requested = userService.findWhoAuthUserSentButNotYetAccepted(authUser);
+		Set<String> emails = new LinkedHashSet<>();
+		
+		for(User user : requested)
+		{
+			emails.add(user.getEmail());
+		}
+		
+		return new RestResponse("Ok", emails);		
+	}
+	
+	@GetMapping("/api/findWhoWaitsForAuthUserAccept")
+	public RestResponse findWhoWaitsForAuthUserAccept()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String authUser = auth.getName();	
+	
+		Set<User> requested = userService.findWhoWaitsForAuthUserAccept(authUser);
+		Set<String> emails = new LinkedHashSet<>();
+		
+		for(User user : requested)
+		{
+			emails.add(user.getEmail());
+		}
+		
+		return new RestResponse("Ok", emails);		
 	}
 }

@@ -1,3 +1,7 @@
+var url = window.location.href;
+var arr = url.split("/");
+url = arr[0] + "//" + arr[2];
+
 var eppenBeszel = new Array("", "");
 var jelenlegiMsg = "";
 var numberOfMessages = -1;
@@ -17,10 +21,10 @@ $(document).ready(function() {
 
     setInterval(function() {
         updateFriendList();
-    }, 1000);
+    }, 2000);
     setInterval(function() {
     	checkForNewMessages();
-    }, 200);
+    }, 500);
 
     $(".list-friends").niceScroll(conf);
     $(".messages").niceScroll(lol);
@@ -45,7 +49,7 @@ function sendMessage() {
         if (msg2 != "") {
             $.ajax({
                 type: "GET",
-                url: window.location + "/api/newMessage?for=" + eppenBeszel[0] + "&message=" + msg2
+                url: url + "/api/newMessage?for=" + eppenBeszel[0] + "&message=" + msg2
             });
         }
         $(".ui .write-form textarea").val("");
@@ -57,7 +61,7 @@ function checkForNewMessages()
 	if (eppenBeszel[0] != "")
     {
         $.ajax({type: "GET",
-                url: window.location + "/api/getNumberOfMessages?with=" + eppenBeszel[0],
+                url: url + "/api/getNumberOfMessages?with=" + eppenBeszel[0],
                 success: function(result)
                 {
                     if (result.status == "Ok")
@@ -78,7 +82,7 @@ function updateMessages()
     if (eppenBeszel[0] != "")
     {
         $.ajax({type: "GET",
-                url: window.location + "/api/getMessages?with=" + eppenBeszel[0],
+                url: url + "/api/getMessages?with=" + eppenBeszel[0],
                 success: function(result)
                 {
                     if (result.status == "Ok")
@@ -140,7 +144,7 @@ function updateFriendList() {
     $
         .ajax({
             type: "GET",
-            url: window.location + "/api/getFriends",
+            url: url + "/api/getFriends",
             success: function(result) {
                 if (result.status == "Ok") {
                     $('#leftpanel ul').empty();

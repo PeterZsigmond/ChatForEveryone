@@ -174,6 +174,9 @@ public class UserService implements UserDetailsService
 
 		if (rship != null)
 		{
+			if(rship.isAccepted())
+				return "Már kapcsolatban vagytok!";
+			
 			if(sender.getEmail().equals(rship.getReceiver().getEmail()))
 				updateRelationshipToAccepted(sender.getEmail(), receiver.getEmail());
 			else
