@@ -8,7 +8,7 @@ Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a
  
 ## Install
  - Run: `mvn clean install`
- - Create database `chatforeveryone` (or as you named it in the properties file).
+ - Create a database.
  - Configure `application.properties`. See below.
  - Now you only need two files: `application.properties` and `target/chatforeveryone-1.0.jar`. Put them in the same directory. You can delete the other files, if you want.
  - Run: `java -jar chatforeveryone-1.0.jar`
@@ -16,7 +16,7 @@ Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a
 ### Configuring `application.properties`
  - At first start set the `spring.jpa.hibernate.ddl-auto=` to `create` mode. This will build the database structure. Then stop the program, and rewrite this field to `update`.
  - `server.port=` The port that the server is running on.
- - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME?characterEncoding=utf8`
+ - `spring.datasource.url=` Set this with the following rules: `jdbc:mysql://DB_SERVER_URL:PORT/DB_NAME_YOU_CREATED?characterEncoding=utf8`
  - `spring.datasource.username/password=` MySQL username/password.
  - `email.enable.sending=` Set this to `true`, to send e-mails. (Only use `false` for testing.)
  - `email.server.full.address=` The URL of the server. This will be sent in the email.
