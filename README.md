@@ -7,9 +7,9 @@ Hi! I'm Péter Zsigmond, and this is my first **Spring Boot** project. This is a
  - Maven
  
 ## Install
- - Configure `application.properties`. See below.
- - Create database `chatforeveryone` (or as you named it in the properties file).
  - Run: `mvn clean install`
+ - Create database `chatforeveryone` (or as you named it in the properties file).
+ - Configure `application.properties`. See below.
  - Now you only need two files: `application.properties` and `target/chatforeveryone-1.0.jar`. Put them in the same directory. You can delete the other files, if you want.
  - Run: `java -jar chatforeveryone-1.0.jar`
  
